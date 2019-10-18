@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValaisEat", "ValaisBooking\ValaisEat.csproj", "{C7C35BDE-DAA7-4781-8C56-7E251926A7B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{93EC5E76-8AFE-4D4E-BACE-462FF52CE227}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C7C35BDE-DAA7-4781-8C56-7E251926A7B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7C35BDE-DAA7-4781-8C56-7E251926A7B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7C35BDE-DAA7-4781-8C56-7E251926A7B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7C35BDE-DAA7-4781-8C56-7E251926A7B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93EC5E76-8AFE-4D4E-BACE-462FF52CE227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93EC5E76-8AFE-4D4E-BACE-462FF52CE227}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93EC5E76-8AFE-4D4E-BACE-462FF52CE227}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93EC5E76-8AFE-4D4E-BACE-462FF52CE227}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B02EC7BE-BCD3-4ED0-936E-6E5930F00512}
+	EndGlobalSection
+EndGlobal
