@@ -5,6 +5,14 @@ using DTO;
 
 namespace BLL
 {
+    interface IOrdersManager
+    {
+        List<Order> GetAll();
+        Order GetByID(int id);
+        void Delete(Order obj);
+        Order Add(Order obj);
+        Order Update(Order obj);
+    }
     class OrdersManager : IOrdersManager
     {
         public Order Add(Order obj)
