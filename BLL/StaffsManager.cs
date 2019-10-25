@@ -1,37 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Extensions.Configuration;
 using DTO;
 
-
-namespace DAL
+namespace BLL
 {
-    class Customers_DB : IDB
+    class StaffsManager : IStaffsManager
     {
-        public IConfiguration Configuration => throw new NotImplementedException();
-
-        public object Add(object obj)
+        public Staff Add(Staff obj)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(object obj)
+        public void Delete(Staff obj)
         {
             throw new NotImplementedException();
         }
 
-        public List<object> GetAll()
+        public List<Staff> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public object GetByID(int id)
+        public Staff GetByID(int id)
         {
             throw new NotImplementedException();
         }
 
-        public object Update(object obj)
+        public Staff Update(Staff obj)
         {
             throw new NotImplementedException();
         }

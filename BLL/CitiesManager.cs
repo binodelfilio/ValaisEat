@@ -1,37 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Microsoft.Extensions.Configuration;
 using DTO;
 
-
-namespace DAL
+namespace BLL
 {
-    class Customers_DB : IDB
+    public class CitiesManager : ICitiesManager
     {
-        public IConfiguration Configuration => throw new NotImplementedException();
-
-        public object Add(object obj)
+        public City Add(City obj)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(object obj)
+        public void Delete(City obj)
         {
             throw new NotImplementedException();
         }
 
-        public List<object> GetAll()
+        public List<City> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public object GetByID(int id)
+        public City GetByID(int id)
         {
             throw new NotImplementedException();
         }
 
-        public object Update(object obj)
+        public City Update(City obj)
         {
             throw new NotImplementedException();
         }

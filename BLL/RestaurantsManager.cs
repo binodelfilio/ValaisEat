@@ -1,37 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Extensions.Configuration;
 using DTO;
 
-
-namespace DAL
+namespace BLL
 {
-    class Customers_DB : IDB
+    class RestaurantsManager : IRestaurantsManager
     {
-        public IConfiguration Configuration => throw new NotImplementedException();
-
-        public object Add(object obj)
+        Restaurant IRestaurantsManager.Add(Restaurant obj)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(object obj)
+        void IRestaurantsManager.Delete(Restaurant obj)
         {
             throw new NotImplementedException();
         }
 
-        public List<object> GetAll()
+        List<Restaurant> IRestaurantsManager.GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public object GetByID(int id)
+        Restaurant IRestaurantsManager.GetByID(int id)
         {
             throw new NotImplementedException();
         }
 
-        public object Update(object obj)
+        Restaurant IRestaurantsManager.Update(Restaurant obj)
         {
             throw new NotImplementedException();
         }
