@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
+using DAL;
 
 namespace ConsoleApp
 {
@@ -13,6 +14,8 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            Restaurants_DB restaurants_DB = new Restaurants_DB();
+            restaurants_DB.Add(new Restaurant());
         }
     }
 }

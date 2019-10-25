@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DAL
 {
-    class Order
+    public class Order
     {
         public int IdOrder { get; set; }
         public string Status { get; set; }

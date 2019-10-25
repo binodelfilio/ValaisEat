@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace DAL
 {
-    class Dishes_DB : IDB
+    public class Dishes_DB : IDB
     {
         public IConfiguration Configuration => throw new NotImplementedException();
 

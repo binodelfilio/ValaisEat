@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DAL
 {
-    class Staff
+    public class Staff
     {
         public int IdStaff { get; set; }
         public string Firstname { get; set; }

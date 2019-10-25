@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DAL
 {
-    class City
+    public class City
     {
         public int IdCity { get; set; }
         public string Name { get; set; }

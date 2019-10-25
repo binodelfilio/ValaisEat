@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DAL
 {
-    class Order_Dish
+    public class Order_Dish
     {
         public int IdOrder_Dish { get; set; }
         public int Quantity { get; set; }
