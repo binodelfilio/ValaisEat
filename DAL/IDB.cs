@@ -8,7 +8,7 @@ using DTO;
 
 namespace DAL
 {
-    interface IDB
+    public interface IDB
     {
         IConfiguration Configuration { get; }
     }

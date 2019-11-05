@@ -10,7 +10,7 @@ using DTO;
 namespace DAL
 {
 
-    interface IDishes_DB : IDB
+    public interface IDishes_DB : IDB
     {
 
         List<Dish> GetAll();

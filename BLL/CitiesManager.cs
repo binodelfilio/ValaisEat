@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using DTO;
+using DAL;
+using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
@@ -8,35 +10,35 @@ namespace BLL
     {
         List<City> GetAll();
         City GetByID(int id);
-        void Delete(City obj);
-        City Add(City obj);
-        City Update(City obj);
+        City Add(City city);
+
     }
     public class CitiesManager : ICitiesManager
     {
-        public City Add(City obj)
+        public ICities_DB CitiesDbObject { get; }
+
+        public CitiesManager(IConfiguration conf)
         {
-            throw new NotImplementedException();
+            CitiesDbObject = new Cities_DB(conf);
         }
 
-        public void Delete(City obj)
+        public City Add(City city)
         {
-            throw new NotImplementedException();
+            return CitiesDbObject.Add(city);
         }
 
+        
         public List<City> GetAll()
         {
-            throw new NotImplementedException();
+            return CitiesDbObject.GetAll();
         }
+
 
         public City GetByID(int id)
         {
-            throw new NotImplementedException();
+            return CitiesDbObject.GetByID(id);
         }
 
-        public City Update(City obj)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

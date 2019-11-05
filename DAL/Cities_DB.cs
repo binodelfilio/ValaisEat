@@ -7,14 +7,14 @@ using DTO;
 
 namespace DAL
 {
-    interface ICities_DB : IDB
+    public interface ICities_DB : IDB
     {
 
         List<City> GetAll();
         City GetByID(int id);
         City Add(City city);
     }
-    class Cities_DB : ICities_DB
+    public class Cities_DB : ICities_DB
     {
         public IConfiguration Configuration { get; }
         private string connectionString { get; }

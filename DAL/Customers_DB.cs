@@ -8,7 +8,7 @@ using DTO;
 
 namespace DAL
 {
-    interface ICustomers_DB : IDB
+    public interface ICustomers_DB : IDB
     {
 
         List<Customer> GetAll();
@@ -16,7 +16,7 @@ namespace DAL
         Customer Add(Customer customer);
         int Update(Customer customer);
     }
-    class Customers_DB : ICustomers_DB
+    public class Customers_DB : ICustomers_DB
     {
         public IConfiguration Configuration { get; }
         private string connectionString { get; }

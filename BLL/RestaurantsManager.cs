@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using DTO;
+using DAL;
+using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
@@ -9,35 +11,44 @@ namespace BLL
     {
         List<Restaurant> GetAll();
         Restaurant GetByID(int id);
-        void Delete(Restaurant obj);
-        Restaurant Add(Restaurant obj);
-        Restaurant Update(Restaurant obj);
+        int Delete(int id);
+        Restaurant Add(Restaurant restaurant);
+        int Update(Restaurant restaurant);
     }
     class RestaurantsManager : IRestaurantsManager
     {
-        Restaurant IRestaurantsManager.Add(Restaurant obj)
+
+        public IRestaurants_DB RestaurantsDbObject { get; }
+
+        public RestaurantsManager(IConfiguration conf)
         {
-            throw new NotImplementedException();
+            RestaurantsDbObject = new Restaurants_DB(conf);
         }
 
-        void IRestaurantsManager.Delete(Restaurant obj)
+
+        public Restaurant Add(Restaurant restaurant)
         {
-            throw new NotImplementedException();
+            return RestaurantsDbObject.Add(restaurant);
         }
 
-        List<Restaurant> IRestaurantsManager.GetAll()
+        public int Delete(int id)
         {
-            throw new NotImplementedException();
+            return RestaurantsDbObject.Delete(id);
         }
 
-        Restaurant IRestaurantsManager.GetByID(int id)
+        public List<Restaurant> GetAll()
         {
-            throw new NotImplementedException();
+            return RestaurantsDbObject.GetAll();
         }
 
-        Restaurant IRestaurantsManager.Update(Restaurant obj)
+        public Restaurant GetByID(int id)
         {
-            throw new NotImplementedException();
+            return RestaurantsDbObject.GetByID(id);
+        }
+
+        public int Update(Restaurant restaurant)
+        {
+            return RestaurantsDbObject.Update(restaurant);
         }
     }
 }

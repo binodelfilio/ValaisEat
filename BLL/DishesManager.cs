@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using DTO;
+using DAL;
+using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
@@ -9,36 +11,45 @@ namespace BLL
     {
         List<Dish> GetAll();
         Dish GetByID(int id);
-        void Delete(Dish obj);
-        Dish Add(Dish obj);
-        Dish Update(Dish obj);
+        int Delete(int id);
+        Dish Add(Dish dish);
+        int Update(Dish dish);
     }
 
     class DishesManager : IDishesManager
     {
-        public Dish Add(Dish obj)
+
+        public IDishes_DB DishesDbObject { get; }
+
+        public DishesManager(IConfiguration conf)
         {
-            throw new NotImplementedException();
+            DishesDbObject = new Dishes_DB(conf);
         }
 
-        public void Delete(Dish obj)
+
+        public Dish Add(Dish dish)
         {
-            throw new NotImplementedException();
+            return DishesDbObject.Add(dish);
+        }
+
+        public int Delete(int id)
+        {
+            return DishesDbObject.Delete(id);
         }
 
         public List<Dish> GetAll()
         {
-            throw new NotImplementedException();
+            return DishesDbObject.GetAll();
         }
 
         public Dish GetByID(int id)
         {
-            throw new NotImplementedException();
+            return DishesDbObject.GetByID(id);
         }
 
-        public Dish Update(Dish obj)
+        public int Update(Dish dish)
         {
-            throw new NotImplementedException();
+            return DishesDbObject.Update(dish);
         }
     }
 }

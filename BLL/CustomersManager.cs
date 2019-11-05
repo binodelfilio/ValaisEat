@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using DTO;
+using DAL;
+using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
@@ -9,36 +11,37 @@ namespace BLL
     {
         List<Customer> GetAll();
         Customer GetByID(int id);
-        void Delete(Customer obj);
-        Customer Add(Customer obj);
-        Customer Update(Customer obj);
+        Customer Add(Customer customer);
+        int Update(Customer customer);
     }
 
     class CustomersManager : ICustomersManager
     {
-        public Customer Add(Customer obj)
+        public ICustomers_DB CustomersDbObject { get; }
+
+        public CustomersManager(IConfiguration conf)
         {
-            throw new NotImplementedException();
+            CustomersDbObject = new Customers_DB(conf);
         }
 
-        public void Delete(Customer obj)
+        public Customer Add(Customer customer)
         {
-            throw new NotImplementedException();
+            return CustomersDbObject.Add(customer);
         }
 
         public List<Customer> GetAll()
         {
-            throw new NotImplementedException();
+            return CustomersDbObject.GetAll();
         }
 
         public Customer GetByID(int id)
         {
-            throw new NotImplementedException();
+            return CustomersDbObject.GetByID(id);
         }
 
-        public Customer Update(Customer obj)
+        public int Update(Customer customer)
         {
-            throw new NotImplementedException();
+            return CustomersDbObject.Update(customer);
         }
     }
 }

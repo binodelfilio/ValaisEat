@@ -8,7 +8,7 @@ using DTO;
 namespace DAL
 {
 
-    interface IOrder_Dish_DB : IDB
+    public interface IOrder_Dish_DB : IDB
     {
 
         List<Order_Dish> GetAll();
@@ -16,7 +16,7 @@ namespace DAL
         int Delete(int id);
         Order_Dish Add(Order_Dish order_Dish);
     }
-    class Order_Dish_DB : IOrder_Dish_DB
+    public class Order_Dish_DB : IOrder_Dish_DB
     {
         public IConfiguration Configuration { get; }
         private string connectionString { get; }

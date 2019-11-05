@@ -7,7 +7,7 @@ using DTO;
 
 namespace DAL
 {
-    interface IOrder_DB : IDB
+    public interface IOrder_DB : IDB
     {
 
         List<Order> GetAll();
@@ -15,7 +15,7 @@ namespace DAL
         int Delete(int id);
         Order Add(Order order);
     }
-    class Orders_DB : IOrder_DB
+    public class Orders_DB : IOrder_DB
     {
         public IConfiguration Configuration { get; }
         private string connectionString { get; }

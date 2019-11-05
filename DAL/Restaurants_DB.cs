@@ -7,7 +7,7 @@ using DTO;
 
 namespace DAL
 {
-    interface IRestaurants_DB : IDB
+    public interface IRestaurants_DB : IDB
     {
 
         List<Restaurant> GetAll();
@@ -173,6 +173,11 @@ namespace DAL
             restaurant.City = null;
 
             return restaurant;
+        }
+
+        public static implicit operator Restaurants_DB(Cities_DB v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

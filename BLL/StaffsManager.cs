@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using DTO;
+using DAL;
+using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
@@ -9,36 +11,43 @@ namespace BLL
     {
         List<Staff> GetAll();
         Staff GetByID(int id);
-        void Delete(Staff obj);
-        Staff Add(Staff obj);
-        Staff Update(Staff obj);
+        int Delete(int id);
+        Staff Add(Staff staff);
+        int Update(Staff staff);
     }
 
     class StaffsManager : IStaffsManager
     {
-        public Staff Add(Staff obj)
+        public IStaffs_DB StaffsDbObject { get; }
+
+        public StaffsManager(IConfiguration conf)
         {
-            throw new NotImplementedException();
+            StaffsDbObject = new Staffs_DB(conf);
         }
 
-        public void Delete(Staff obj)
+        public Staff Add(Staff staff)
         {
-            throw new NotImplementedException();
+            return StaffsDbObject.Add(staff);
+        }
+
+        public int Delete(int id)
+        {
+            return StaffsDbObject.Delete(id);
         }
 
         public List<Staff> GetAll()
         {
-            throw new NotImplementedException();
+            return StaffsDbObject.GetAll();
         }
 
         public Staff GetByID(int id)
         {
-            throw new NotImplementedException();
+            return StaffsDbObject.GetByID(id);
         }
 
-        public Staff Update(Staff obj)
+        public int Update(Staff staff)
         {
-            throw new NotImplementedException();
+            return StaffsDbObject.Update(staff);
         }
     }
 }

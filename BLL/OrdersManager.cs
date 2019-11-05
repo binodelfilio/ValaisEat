@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using DTO;
+using DAL;
+using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
@@ -9,35 +11,36 @@ namespace BLL
     {
         List<Order> GetAll();
         Order GetByID(int id);
-        void Delete(Order obj);
-        Order Add(Order obj);
-        Order Update(Order obj);
+        int Delete(int id);
+        Order Add(Order order);
     }
     class OrdersManager : IOrdersManager
     {
-        public Order Add(Order obj)
+        public IOrder_DB OrdersDbObject { get; }
+
+        public OrdersManager(IConfiguration conf)
         {
-            throw new NotImplementedException();
+            OrdersDbObject = new Orders_DB(conf);
         }
 
-        public void Delete(Order obj)
+        public Order Add(Order order)
         {
-            throw new NotImplementedException();
+            return OrdersDbObject.Add(order);
+        }
+
+        public int Delete(int id)
+        {
+            return OrdersDbObject.Delete(id);
         }
 
         public List<Order> GetAll()
         {
-            throw new NotImplementedException();
+            return OrdersDbObject.GetAll();
         }
 
         public Order GetByID(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Order Update(Order obj)
-        {
-            throw new NotImplementedException();
+            return OrdersDbObject.GetByID(id);
         }
     }
 }

@@ -8,7 +8,7 @@ using DTO;
 namespace DAL
 {
 
-    interface IStaffs_DB: IDB
+    public interface IStaffs_DB: IDB
     {
 
         List<Staff> GetAll();
@@ -17,7 +17,7 @@ namespace DAL
         Staff Add(Staff staff);
         int Update(Staff staff);
     }
-    class Staffs_DB : IStaffs_DB
+    public class Staffs_DB : IStaffs_DB
     {
         public IConfiguration Configuration { get; }
         private string connectionString { get; }
