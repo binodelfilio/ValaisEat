@@ -1,37 +1,124 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 
 namespace DAL
 {
-    class Cities_DB : IDB
+    interface ICities_DB : IDB
     {
-        public IConfiguration Configuration => throw new NotImplementedException();
 
-        public object Add(object obj)
+        List<City> GetAll();
+        City GetByID(int id);
+        City Add(City city);
+    }
+    class Cities_DB : ICities_DB
+    {
+        public IConfiguration Configuration { get; }
+        private string connectionString { get; }
+        public Cities_DB(IConfiguration conf)
         {
-            throw new NotImplementedException();
+            Configuration = conf;
+            connectionString = Configuration.GetConnectionString("DefaultConnection");
         }
 
-        public void Delete(object obj)
+        public City Add(City city)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    string query = "INSERT INTO City(Name, NPA) VALUES(@Name, @NPA); SELECT SCOPE_IDENTITY()";
+                    SqlCommand cmd = new SqlCommand(query, cn);
+                    cmd.Parameters.AddWithValue("@Name", city.Name);
+                    cmd.Parameters.AddWithValue("@NPA", city.NPA);
+                    cn.Open();
+
+                    city.IdCity = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return city;
         }
 
-        public List<object> GetAll()
+
+        public List<City> GetAll()
         {
-            throw new NotImplementedException();
+            List<City> results = null;
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM City";
+                    SqlCommand cmd = new SqlCommand(query, cn);
+
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            if (results == null)
+                                results = new List<City>();
+                            results.Add(serializeCity(dr));
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return results;
         }
 
-        public object GetByID(int id)
+        public City GetByID(int id)
         {
-            throw new NotImplementedException();
+            City city = null;
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM City WHERE IdCity = @id";
+                    SqlCommand cmd = new SqlCommand(query, cn);
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            city = serializeCity(dr);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return city;
         }
 
-        public object Update(object obj)
+        private City serializeCity(SqlDataReader dr)
         {
-            throw new NotImplementedException();
+            City city = new City();
+
+            city.IdCity = (int)dr["IdCity"];
+            city.Name = (string)dr["Name"];
+            city.NPA = (string)dr["NPA"];
+
+            return city;
         }
     }
 }
