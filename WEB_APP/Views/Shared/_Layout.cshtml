@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ValaisEAT - @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/uikit/css/uikit.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <script src="~/lib/uikit/js/uikit.min.js"></script>
+    <script src="~/lib/uikit/js/uikit-icons.min.js"></script>
+
+    <environment exclude="Development">
+
+    </environment>
+</head>
+<body>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <environment exclude="Development">
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+
+
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

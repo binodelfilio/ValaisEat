@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
-    interface IRestaurantsManager
+    public interface IRestaurantsManager
     {
         List<Restaurant> GetAll();
         Restaurant GetByID(int id);
@@ -15,7 +15,7 @@ namespace BLL
         Restaurant Add(Restaurant restaurant);
         int Update(Restaurant restaurant);
     }
-    class RestaurantsManager : IRestaurantsManager
+    public class RestaurantsManager : IRestaurantsManager
     {
 
         public IRestaurants_DB RestaurantsDbObject { get; }

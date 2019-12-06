@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
-    interface IStaffsManager
+    public interface IStaffsManager
     {
         List<Staff> GetAll();
         Staff GetByID(int id);
@@ -18,36 +18,37 @@ namespace BLL
 
     class StaffsManager : IStaffsManager
     {
-        public IStaffs_DB StaffsDbObject { get; }
+        private IStaffs_DB staff_db { get; }
 
-        public StaffsManager(IConfiguration conf)
+        public StaffsManager(IStaffs_DB staff_db)
         {
-            StaffsDbObject = new Staffs_DB(conf);
+            this.staff_db = staff_db;
+;
         }
 
         public Staff Add(Staff staff)
         {
-            return StaffsDbObject.Add(staff);
+            return staff_db.Add(staff);
         }
 
         public int Delete(int id)
         {
-            return StaffsDbObject.Delete(id);
+            return staff_db.Delete(id);
         }
 
         public List<Staff> GetAll()
         {
-            return StaffsDbObject.GetAll();
+            return staff_db.GetAll();
         }
 
         public Staff GetByID(int id)
         {
-            return StaffsDbObject.GetByID(id);
+            return staff_db.GetByID(id);
         }
 
         public int Update(Staff staff)
         {
-            return StaffsDbObject.Update(staff);
+            return staff_db.Update(staff);
         }
     }
 }

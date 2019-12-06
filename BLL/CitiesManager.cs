@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
-    interface ICitiesManager
+    public interface ICitiesManager
     {
         List<City> GetAll();
         City GetByID(int id);
@@ -15,28 +15,28 @@ namespace BLL
     }
     public class CitiesManager : ICitiesManager
     {
-        public ICities_DB CitiesDbObject { get; }
+        private ICities_DB citie_db { get; }
 
-        public CitiesManager(IConfiguration conf)
+        public CitiesManager(ICities_DB citie_db)
         {
-            CitiesDbObject = new Cities_DB(conf);
+            this.citie_db = citie_db;
         }
 
         public City Add(City city)
         {
-            return CitiesDbObject.Add(city);
+            return citie_db.Add(city);
         }
 
         
         public List<City> GetAll()
         {
-            return CitiesDbObject.GetAll();
+            return citie_db.GetAll();
         }
 
 
         public City GetByID(int id)
         {
-            return CitiesDbObject.GetByID(id);
+            return citie_db.GetByID(id);
         }
 
         

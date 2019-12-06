@@ -15,6 +15,6 @@ namespace DTO
          */
         public string TimePrepa { get; set; }
         public Restaurant Restaurant { get; set; }
-
+        public String PicPath { get; set; }
     }
 }

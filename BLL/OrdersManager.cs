@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
-    interface IOrdersManager
+    public interface IOrdersManager
     {
         List<Order> GetAll();
         Order GetByID(int id);
@@ -16,31 +16,31 @@ namespace BLL
     }
     class OrdersManager : IOrdersManager
     {
-        public IOrder_DB OrdersDbObject { get; }
+        public IOrder_DB orders_DB { get; }
 
-        public OrdersManager(IConfiguration conf)
+        public OrdersManager(IOrder_DB orders_DB)
         {
-            OrdersDbObject = new Orders_DB(conf);
+            this.orders_DB = orders_DB;
         }
 
         public Order Add(Order order)
         {
-            return OrdersDbObject.Add(order);
+            return orders_DB.Add(order);
         }
 
         public int Delete(int id)
         {
-            return OrdersDbObject.Delete(id);
+            return orders_DB.Delete(id);
         }
 
         public List<Order> GetAll()
         {
-            return OrdersDbObject.GetAll();
+            return orders_DB.GetAll();
         }
 
         public Order GetByID(int id)
         {
-            return OrdersDbObject.GetByID(id);
+            return orders_DB.GetByID(id);
         }
     }
 }

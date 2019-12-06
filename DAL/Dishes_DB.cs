@@ -58,7 +58,7 @@ namespace DAL
             {
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
-                    string query = "INSERT INTO Dish(Name, Price, TimePrepa, IdResto) " +
+                    string query = "INSERT INTO Dish(Name, Price, TimePrepa, IdResto, PicPath) " +
                         "VALUES(@Name, @Price, @TimePrepa, @IdResto); SELECT SCOPE_IDENTITY()";
                     SqlCommand cmd = new SqlCommand(query, cn);
 
@@ -66,6 +66,8 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Price", dish.Price);
                     cmd.Parameters.AddWithValue("@TimePrepa", dish.TimePrepa);
                     cmd.Parameters.AddWithValue("@IdResto", dish.Restaurant.IdRestaurant);
+                    cmd.Parameters.AddWithValue("@PicPath", dish.PicPath);
+
                     cn.Open();
 
                     dish.IdDish = Convert.ToInt32(cmd.ExecuteScalar());
@@ -86,13 +88,15 @@ namespace DAL
             {
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
-                    string query = "UPDATE Dish SET Name=@Name, Price=@Price, TimePrepa=@TimePrepa, IdResto=@IdResto WHERE idDish=@id;";
+                    string query = "UPDATE Dish SET Name=@Name, Price=@Price, TimePrepa=@TimePrepa, IdResto=@IdResto, PicPath=@PicPath WHERE idDish=@id;";
                     SqlCommand cmd = new SqlCommand(query, cn);
                     cmd.Parameters.AddWithValue("@Name", dish.Name);
                     cmd.Parameters.AddWithValue("@Price", dish.Price);
                     cmd.Parameters.AddWithValue("@TimePrepa", dish.TimePrepa);
                     cmd.Parameters.AddWithValue("@IdResto", dish.Restaurant.IdRestaurant);
                     cmd.Parameters.AddWithValue("@id", dish.IdDish);
+                    cmd.Parameters.AddWithValue("@PicPath", dish.PicPath);
+                    
 
                     cn.Open();
 
@@ -175,6 +179,7 @@ namespace DAL
             dish.Name = (string)dr["Name"];
             dish.Price = (float)dr["Price"];
             dish.TimePrepa = (string)dr["TimePrepa"];
+            dish.PicPath = (string)dr["PicPath"];
             dish.Restaurant = null;
 
             return dish;

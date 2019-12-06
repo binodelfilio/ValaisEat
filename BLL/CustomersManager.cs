@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
-    interface ICustomersManager
+    public interface ICustomersManager
     {
         List<Customer> GetAll();
         Customer GetByID(int id);
@@ -15,33 +15,33 @@ namespace BLL
         int Update(Customer customer);
     }
 
-    class CustomersManager : ICustomersManager
+    public class CustomersManager : ICustomersManager
     {
-        public ICustomers_DB CustomersDbObject { get; }
+        public ICustomers_DB customers_db { get; }
 
-        public CustomersManager(IConfiguration conf)
+        public CustomersManager(ICustomers_DB customers_db)
         {
-            CustomersDbObject = new Customers_DB(conf);
+            this.customers_db = customers_db;
         }
 
         public Customer Add(Customer customer)
         {
-            return CustomersDbObject.Add(customer);
+            return customers_db.Add(customer);
         }
 
         public List<Customer> GetAll()
         {
-            return CustomersDbObject.GetAll();
+            return customers_db.GetAll();
         }
 
         public Customer GetByID(int id)
         {
-            return CustomersDbObject.GetByID(id);
+            return customers_db.GetByID(id);
         }
 
         public int Update(Customer customer)
         {
-            return CustomersDbObject.Update(customer);
+            return customers_db.Update(customer);
         }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
-    interface IDishesManager
+    public interface IDishesManager
     {
         List<Dish> GetAll();
         Dish GetByID(int id);
@@ -19,37 +19,37 @@ namespace BLL
     class DishesManager : IDishesManager
     {
 
-        public IDishes_DB DishesDbObject { get; }
+        private IDishes_DB dishes_db { get; }
 
-        public DishesManager(IConfiguration conf)
+        public DishesManager(IDishes_DB dishes_db)
         {
-            DishesDbObject = new Dishes_DB(conf);
+            this.dishes_db = dishes_db;
         }
 
 
         public Dish Add(Dish dish)
         {
-            return DishesDbObject.Add(dish);
+            return dishes_db.Add(dish);
         }
 
         public int Delete(int id)
         {
-            return DishesDbObject.Delete(id);
+            return dishes_db.Delete(id);
         }
 
         public List<Dish> GetAll()
         {
-            return DishesDbObject.GetAll();
+            return dishes_db.GetAll();
         }
 
         public Dish GetByID(int id)
         {
-            return DishesDbObject.GetByID(id);
+            return dishes_db.GetByID(id);
         }
 
         public int Update(Dish dish)
         {
-            return DishesDbObject.Update(dish);
+            return dishes_db.Update(dish);
         }
     }
 }

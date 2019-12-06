@@ -55,13 +55,15 @@ namespace DAL
             {
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
-                    string query = "INSERT INTO Restaurant(name, address, idCity) " +
+                    string query = "INSERT INTO Restaurant(name, address, idCity, PicPath) " +
                         "VALUES(@name, @address, @idCity); SELECT SCOPE_IDENTITY()";
                     SqlCommand cmd = new SqlCommand(query, cn);
 
                     cmd.Parameters.AddWithValue("@name", restaurant.Name);
                     cmd.Parameters.AddWithValue("@address", restaurant.Address);
                     cmd.Parameters.AddWithValue("@IdCity", restaurant.City.IdCity);
+                    cmd.Parameters.AddWithValue("@PicPath", restaurant.PicPath);
+                    
                     cn.Open();
 
                     restaurant.IdRestaurant = Convert.ToInt32(cmd.ExecuteScalar());
@@ -82,12 +84,14 @@ namespace DAL
             {
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
-                    string query = "UPDATE Restaurant SET name=@name, address=@address, IdCity=@IdCity WHERE idRestaurant=@id;";
+                    string query = "UPDATE Restaurant SET name=@name, address=@address, IdCity=@IdCity PicPath=@PicPath WHERE idRestaurant=@id;";
                     SqlCommand cmd = new SqlCommand(query, cn);
                     cmd.Parameters.AddWithValue("@name", restaurant.Name);
                     cmd.Parameters.AddWithValue("@address", restaurant.Address);
                     cmd.Parameters.AddWithValue("@IdCity", restaurant.City.IdCity);
                     cmd.Parameters.AddWithValue("@id", restaurant.IdRestaurant);
+                    cmd.Parameters.AddWithValue("@PicPath", restaurant.PicPath);
+
 
                     cn.Open();
 
@@ -169,8 +173,9 @@ namespace DAL
 
             restaurant.IdRestaurant = (int)dr["IdRestaurant"];
             restaurant.Name = (string)dr["Name"];
-            restaurant.Address = (string)dr["Address"]; ;
+            restaurant.Address = (string)dr["Address"];
             restaurant.City = null;
+            restaurant.PicPath = (string)dr["PicPath"];
 
             return restaurant;
         }

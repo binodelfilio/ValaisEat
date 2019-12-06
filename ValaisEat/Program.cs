@@ -13,9 +13,6 @@ namespace ConsoleApp
             .Build();
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            Restaurants_DB restaurants_DB = new Restaurants_DB();
-            restaurants_DB.Add(new Restaurant());
         }
     }
 }
