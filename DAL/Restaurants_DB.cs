@@ -61,7 +61,7 @@ namespace DAL
 
                     cmd.Parameters.AddWithValue("@name", restaurant.Name);
                     cmd.Parameters.AddWithValue("@address", restaurant.Address);
-                    cmd.Parameters.AddWithValue("@IdCity", restaurant.City.IdCity);
+                    cmd.Parameters.AddWithValue("@IdCity", restaurant.IdCity);
                     cmd.Parameters.AddWithValue("@PicPath", restaurant.PicPath);
                     
                     cn.Open();
@@ -88,7 +88,7 @@ namespace DAL
                     SqlCommand cmd = new SqlCommand(query, cn);
                     cmd.Parameters.AddWithValue("@name", restaurant.Name);
                     cmd.Parameters.AddWithValue("@address", restaurant.Address);
-                    cmd.Parameters.AddWithValue("@IdCity", restaurant.City.IdCity);
+                    cmd.Parameters.AddWithValue("@IdCity", restaurant.IdCity);
                     cmd.Parameters.AddWithValue("@id", restaurant.IdRestaurant);
                     cmd.Parameters.AddWithValue("@PicPath", restaurant.PicPath);
 
@@ -113,7 +113,7 @@ namespace DAL
             {
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT * FROM Restaurant WHERE IdRestaurant = @id";
+                    string query = "SELECT * FROM Restaurant WHERE IdResto = @id";
                     SqlCommand cmd = new SqlCommand(query, cn);
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -171,10 +171,10 @@ namespace DAL
             // TODO: Manage to get object by id => get from manager ? 
             Restaurant restaurant = new Restaurant();
 
-            restaurant.IdRestaurant = (int)dr["IdRestaurant"];
+            restaurant.IdRestaurant = (int)dr["idResto"];
             restaurant.Name = (string)dr["Name"];
             restaurant.Address = (string)dr["Address"];
-            restaurant.City = null;
+            restaurant.IdCity = (int)dr["IdCity"];
             restaurant.PicPath = (string)dr["PicPath"];
 
             return restaurant;

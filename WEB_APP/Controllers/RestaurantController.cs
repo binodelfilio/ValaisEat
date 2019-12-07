@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using DAL;
+using BLL;
 using Microsoft.AspNetCore.Mvc;
 using WEB_APP.Models;
 
@@ -11,11 +11,12 @@ namespace WEB_APP.Controllers
 {
     public class RestaurantController : Controller
     {
-        private IRestaurants_DB restaurant_db { get; }
-        private List<Restaurant> Restos { get; set; }
-        public RestaurantController(IRestaurants_DB restaurant_db)
+        private IRestaurantsManager restaurantsManager { get; }
+        private ICitiesManager citiesManager { get; }
+        public RestaurantController(IRestaurantsManager restaurantsManager, ICitiesManager citiesManager)
         {
-            this.restaurant_db = restaurant_db;
+            this.restaurantsManager = restaurantsManager;
+            this.citiesManager = citiesManager;
         }
         public IActionResult Index()
         {
@@ -23,7 +24,32 @@ namespace WEB_APP.Controllers
         }
         public IActionResult List()
         {
-            return View(Restos);
+            List <RestaurantsByCity> restaurantsByCity = new List<RestaurantsByCity>();
+            
+            foreach (var city in citiesManager.GetAll())
+            {
+                List<Restaurant> restos = new List<Restaurant>();
+                foreach (var restaurant in restaurantsManager.GetByCityId(city.IdCity))
+                {
+                    restos.Add(Restaurant.Serialize(restaurant));
+                    restos.Add(Restaurant.Serialize(restaurant));
+                    restos.Add(Restaurant.Serialize(restaurant));
+                    restos.Add(Restaurant.Serialize(restaurant));
+                    restos.Add(Restaurant.Serialize(restaurant));
+                    restos.Add(Restaurant.Serialize(restaurant));
+                    restos.Add(Restaurant.Serialize(restaurant));
+                    restos.Add(Restaurant.Serialize(restaurant));
+                }
+                //new RestaurantsByCity { City = c, Restaurants = restos };
+                restaurantsByCity.Add(new RestaurantsByCity { City = City.Serialize(city), Restaurants = restos });
+               
+            }
+            return View(restaurantsByCity);
+        }
+        public IActionResult Details(int id)
+        {
+            return View(Restaurant.Serialize(restaurantsManager.GetByID(id)));
         }
     }
 }
+

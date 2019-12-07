@@ -41,7 +41,7 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Username", customer.Username);
                     cmd.Parameters.AddWithValue("@Password", customer.Password);
                     cmd.Parameters.AddWithValue("@Email", customer.Email);
-                    cmd.Parameters.AddWithValue("@idCity", customer.City.IdCity);
+                    cmd.Parameters.AddWithValue("@idCity", customer.IdCity);
                     cn.Open();
 
                     customer.IdCustomer = Convert.ToInt32(cmd.ExecuteScalar());
@@ -132,7 +132,7 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Username", customer.Username);
                     cmd.Parameters.AddWithValue("@Password", customer.Password);
                     cmd.Parameters.AddWithValue("@Email", customer.Email);
-                    cmd.Parameters.AddWithValue("@idCity", customer.City.IdCity);
+                    cmd.Parameters.AddWithValue("@idCity", customer.IdCity);
                     cmd.Parameters.AddWithValue("@id", customer.IdCustomer);
 
                     cn.Open();
@@ -160,7 +160,7 @@ namespace DAL
             customer.Address = (string)dr["Address"];
             if (dr["Email"] != null)
                 customer.Email = (string)dr["Email"];
-            customer.City = null;
+            customer.IdCity = (int)dr["IdCity"];
 
             return customer;
         }

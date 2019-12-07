@@ -1,205 +1,41 @@
-﻿@model IEnumerable<WEB_APP.Models.Restaurant>
+﻿@model IEnumerable<WEB_APP.Models.RestaurantsByCity>
 
 @{
+    Layout = "_Navigation";
     ViewData["Title"] = "Liste des restaurants";
 }
-<h1>Les restaurants</h1>
 
 
-<div class="uk-child-width-1-4@m uk-padding" uk-grid>
+<div class="uk-child-width-1-4@m" uk-grid>
 
-    @foreach (var item in Model)
+    @foreach (var restoByCity in Model)
     {
 
+        @*<div class="uk-width-1-1@m">
+                <h1>@Html.DisplayFor(modelItem => restoByCity.City.Name)</h1>
+            </div>*@
 
-        <div>
-            <div class="uk-card uk-box-shadow-large uk-card-default">
-                <div class="uk-card-media-top uk-cover-container">
-                    <img src="/images/Image_VS_resto/@Html.DisplayFor(modelItem => item.PicPath)" alt="" uk-cover>
-                    <canvas height="200"></canvas>
-                </div>
-                <div class="uk-card-body">
-                    <h3 class="uk-card-title">@Html.DisplayFor(modelItem => item.Name)</h3>
-                    <p>@Html.DisplayFor(modelItem => item.Address)</p>
-                    <p>1926 Fully</p>
-                    <p>@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })</p>
-                </div>
+        @foreach (var restaurant in restoByCity.Restaurants)
+        {
+
+
+            <div>
+
+                <a class="uk-link-toggle" href="@Url.Action("Details", "Restaurant", new { id = restaurant.Id })">
+                    <div class="uk-card uk-box-shadow-large uk-card-default">
+                        <div class="uk-card-media-top uk-cover-container">
+                            <img src="/images/Image_VS_resto/@Html.DisplayFor(modelItem => restaurant.PicPath)" alt="" uk-cover>
+                            <canvas height="200"></canvas>
+                        </div>
+                        <div class="uk-card-body">
+                            <h3 class="uk-card-title"><span class="uk-link-heading">@Html.DisplayFor(modelItem => restaurant.Id) - @Html.DisplayFor(modelItem => restaurant.Name)</span></h3>
+                            <p>@Html.DisplayFor(modelItem => restaurant.Address)</p>
+                            <p>@Html.DisplayFor(modelItem => restoByCity.City.NPA) - @Html.DisplayFor(modelItem => restoByCity.City.Name)</p>
+                        </div>
+                    </div>
+                </a>
             </div>
-        </div>
 
-    }
-    @foreach (var item in Model)
-    {
-
-
-        <div>
-            <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top uk-cover-container">
-                    <img src="/images/Image_VS_resto/@Html.DisplayFor(modelItem => item.PicPath)" alt="" uk-cover>
-                    <canvas height="200"></canvas>
-                </div>
-                <div class="uk-card-body">
-                    <h3 class="uk-card-title">@Html.DisplayFor(modelItem => item.Name)</h3>
-                    <p>@Html.DisplayFor(modelItem => item.Address)</p>
-                    <p>1926 Fully</p>
-                    <p>@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })</p>
-                </div>
-            </div>
-        </div>
-
-    }
-    @foreach (var item in Model)
-    {
-
-
-        <div>
-            <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top uk-cover-container">
-                    <img src="/images/Image_VS_resto/@Html.DisplayFor(modelItem => item.PicPath)" alt="" uk-cover>
-                    <canvas height="200"></canvas>
-                </div>
-                <div class="uk-card-body">
-                    <h3 class="uk-card-title">@Html.DisplayFor(modelItem => item.Name)</h3>
-                    <p>@Html.DisplayFor(modelItem => item.Address)</p>
-                    <p>1926 Fully</p>
-                    <p>@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })</p>
-                </div>
-            </div>
-        </div>
-
-    }
-    @foreach (var item in Model)
-    {
-
-
-        <div>
-            <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top uk-cover-container">
-                    <img src="/images/Image_VS_resto/@Html.DisplayFor(modelItem => item.PicPath)" alt="" uk-cover>
-                    <canvas height="200"></canvas>
-                </div>
-                <div class="uk-card-body">
-                    <h3 class="uk-card-title">@Html.DisplayFor(modelItem => item.Name)</h3>
-                    <p>@Html.DisplayFor(modelItem => item.Address)</p>
-                    <p>1926 Fully</p>
-                    <p>@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })</p>
-                </div>
-            </div>
-        </div>
-
+        }
     }
 </div>
-
-
-
-
-
-@*<div>
-            <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top">
-                    <img src="/images/Image_VS_resto/chavalard.png" alt="">
-                </div>
-                <div class="uk-card-body">
-                    <h3 class="uk-card-title">Chavalard</h3>
-                    <p>Rue de la fontaine 90</p>
-                    <p>1926 Fully</p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top">
-                    <img src="/images/Image_VS_resto/chavalard.png" alt="">
-                </div>
-                <div class="uk-card-body">
-                    <h3 class="uk-card-title">Chavalard</h3>
-                    <p>Rue de la fontaine 90</p>
-                    <p>1926 Fully</p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top">
-                    <img src="/images/Image_VS_resto/chavalard.png" alt="">
-                </div>
-                <div class="uk-card-body">
-                    <h3 class="uk-card-title">Chavalard</h3>
-                    <p>Rue de la fontaine 90</p>
-                    <p>1926 Fully</p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top">
-                    <img src="/images/Image_VS_resto/chavalard.png" alt="">
-                </div>
-                <div class="uk-card-body">
-                    <h3 class="uk-card-title">Chavalard</h3>
-                    <p>Rue de la fontaine 90</p>
-                    <p>1926 Fully</p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top">
-                    <img src="/images/Image_VS_resto/chavalard.png" alt="">
-                </div>
-                <div class="uk-card-body">
-                    <h3 class="uk-card-title">Chavalard</h3>
-                    <p>Rue de la fontaine 90</p>
-                    <p>1926 Fully</p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top">
-                    <img src="/images/Image_VS_resto/chavalard.png" alt="">
-                </div>
-                <div class="uk-card-body">
-                    <h3 class="uk-card-title">Chavalard</h3>
-                    <p>Rue de la fontaine 90</p>
-                    <p>1926 Fully</p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top">
-                    <img src="/images/Image_VS_resto/chavalard.png" alt="">
-                </div>
-                <div class="uk-card-body">
-                    <h3 class="uk-card-title">Chavalard</h3>
-                    <p>Rue de la fontaine 90</p>
-                    <p>1926 Fully</p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top">
-                    <img src="/images/Image_VS_resto/chavalard.png" alt="">
-                </div>
-                <div class="uk-card-body">
-                    <h3 class="uk-card-title">Chavalard</h3>
-                    <p>Rue de la fontaine 90</p>
-                    <p>1926 Fully</p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top">
-                    <img src="/images/Image_VS_resto/chavalard.png" alt="">
-                </div>
-                <div class="uk-card-body">
-                    <h3 class="uk-card-title">Chavalard</h3>
-                    <p>Rue de la fontaine 90</p>
-                    <p>1926 Fully</p>
-                </div>
-            </div>
-        </div>
-    </div>*@

@@ -66,7 +66,7 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Address", staff.Address);
                     cmd.Parameters.AddWithValue("@Username", staff.Username);
                     cmd.Parameters.AddWithValue("@Password", staff.Password);
-                    cmd.Parameters.AddWithValue("@idCity", staff.City.IdCity);
+                    cmd.Parameters.AddWithValue("@idCity", staff.IdCity);
                     cn.Open();
 
                     staff.IdStaff = Convert.ToInt32(cmd.ExecuteScalar());
@@ -96,7 +96,7 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Address", staff.Address);
                     cmd.Parameters.AddWithValue("@Username", staff.Username);
                     cmd.Parameters.AddWithValue("@Password", staff.Password);
-                    cmd.Parameters.AddWithValue("@idCity", staff.City.IdCity);
+                    cmd.Parameters.AddWithValue("@idCity", staff.IdCity);
                     cmd.Parameters.AddWithValue("@id", staff.IdStaff);
 
                     cn.Open();
@@ -187,7 +187,7 @@ namespace DAL
             if (dr["Birthdate"] != null)
                 staff.Birthdate = (string)dr["Birthdate"];
 
-            staff.City = null;
+            staff.IdCity = (int)dr["IdCity"];
 
             return staff;
         }

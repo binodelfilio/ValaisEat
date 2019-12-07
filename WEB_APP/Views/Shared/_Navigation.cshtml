@@ -2,6 +2,40 @@
 
 
 
-    <nav class="uk-navbar-container" uk-navbar>
-        <a asp-action="Index">Back to List</a>
-    </nav>
+
+<!DOCTYPE html>
+<html>
+<head>
+    @Html.Partial("_Head")
+</head>
+<body>
+    <div class="container body-content">
+        <nav class="uk-navbar-container uk-padding-small" uk-navbar>
+            <div class="uk-navbar-left">
+                <a asp-controller="Restaurant" asp-action="List">
+                <img class="logo" src="~/images/logo.png" />
+                </a>
+            </div>
+            <div class="uk-navbar-center">
+
+            </div>
+            <div class="uk-navbar-right">
+                <a class="uk-link-toggle" href="@Url.Action("Index", "User")">
+
+                    <span class="uk-icon-link" uk-icon="icon: user; ratio: 3"></span>
+                </a>
+                <a href="@Url.Action("Index", "Panier")">
+
+                    <span class="uk-icon-link" uk-icon="icon: cart; ratio: 3"></span>
+                </a>
+            </div>
+        </nav>
+        <div class="uk-padding-small">
+            <h1>@ViewData["Title"]</h1>
+            @RenderBody()
+
+        </div>
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

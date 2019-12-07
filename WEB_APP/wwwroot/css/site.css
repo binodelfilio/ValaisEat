@@ -17,3 +17,11 @@ body, html, .body-content {
     -o-background-size: cover;
     background-size: cover;
 }
+
+.logo {
+    height:80px;
+}
+
+.uk-icon {
+    color: black;
+}

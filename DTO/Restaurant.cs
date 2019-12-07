@@ -9,7 +9,7 @@ namespace DTO
         public int IdRestaurant { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public City City { get; set; }
+        public int IdCity { get; set; }
         public String PicPath { get; set; }
     }
 }
