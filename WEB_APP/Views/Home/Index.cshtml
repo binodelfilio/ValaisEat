@@ -12,27 +12,59 @@
             <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
                 <div class="uk-width-1-1@m">
                     <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+                        <ul uk-tab>
+                            <li><a href="">Customer</a></li>
+                            <li><a href="">Staff</a></li>
+                        </ul>
+
+                        <!-- This is the container of the content items -->
+
                         <h2 class="uk-card-title">Welcome to VSeat</h2>
-                        <form asp-action="Login">
-                            <div class="uk-margin">
-                                <div class="uk-inline uk-width-1-1">
-                                    <span class="uk-form-icon" uk-icon="icon: mail"></span>
-                                    <input asp-for="Username" class="uk-input uk-form-large" type="text" value="jean.her" placeholder="Mail">
-                                </div>
-                            </div>
-                            <div class="uk-margin">
-                                <div class="uk-inline uk-width-1-1">
-                                    <span class="uk-form-icon" uk-icon="icon: user"></span>
-                                    <input asp-for="Password" class="uk-input uk-form-large" type="password" value="dfsalkfad3049" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="uk-margin">
-                                <input type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1" value="Login" />
-                            </div>
-                            <div class="uk-text-small uk-text-center">
-                                <p class="error-message">@TempData["ErrorLoginMessage"]</p>
-                                </div>
-                        </form>
+
+                        <ul class="uk-switcher">
+                            <li>
+                                <form asp-action="Login">
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: mail"></span>
+                                            <input asp-for="Username" class="uk-input uk-form-large" type="text" value="jean.her" placeholder="Username">
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: user"></span>
+                                            <input asp-for="Password" class="uk-input uk-form-large" type="password" value="dfsalkfad3049" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <input type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1" value="Customer login" />
+                                    </div>
+                                </form>
+                            </li>
+                            <li>
+                                <form asp-action="StaffLogin">
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: mail"></span>
+                                            <input asp-for="Username" class="uk-input uk-form-large" type="text" value="florian.hedman" placeholder="Username">
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: user"></span>
+                                            <input asp-for="Password" class="uk-input uk-form-large" type="password" value="dfasd987" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <input type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1" value="Staff login" />
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+
+                        <div class="uk-text-small uk-text-center">
+                            <p class="error-message">@TempData["ErrorLoginMessage"]</p>
+                        </div>
                     </div>
                 </div>
             </div>

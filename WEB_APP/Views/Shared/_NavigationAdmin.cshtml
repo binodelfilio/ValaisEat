@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Http
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    @Html.Partial("_Head")
+</head>
+<body>
+    <div class="container body-content">
+        <nav style="padding-top: 10px !important; padding-bottom: 10px !important;" class="uk-navbar-container uk-padding-large uk-navbar uk-padding-remove-bottom uk-padding-remove-top" uk-navbar>
+           
+        </nav>
+        <div class="uk-padding-small uk-margin-large-left uk-margin-large-right">
+            <h5 style="text-align:right">Bienvenue @Context.Session.GetString("Firstname")</h5>
+            @RenderBody()
+
+        </div>
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
