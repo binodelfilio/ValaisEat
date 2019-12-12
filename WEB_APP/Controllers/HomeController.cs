@@ -5,39 +5,43 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WEB_APP.Models;
+using Microsoft.AspNetCore.Http;
+using BLL;
 
 namespace WEB_APP.Controllers
 {
     public class HomeController : Controller
     {
+        private ICustomersManager customersManager { get; set; }
+        public HomeController(ICustomersManager customersManager)
+        {
+            this.customersManager = customersManager;
+        }
         public IActionResult Index()
         {
+            
             return View();
         }
 
-        public IActionResult About()
+        [HttpPost]
+        public IActionResult Login(Login l)
         {
-            ViewData["Message"] = "Your application description page.";
+            var customer = customersManager.GetByUsernamePassword(l.Username, l.Password);
+            @TempData["ErrorLoginMessage"] = "";
+            if (customer != null)
+            {
+                HttpContext.Session.SetString("Firstname", customer.Firstname);
+                HttpContext.Session.SetInt32("IdCustomer", customer.IdCustomer);
+                return RedirectToAction("List", "Restaurant");
+            } else
+            {
+                HttpContext.Session.SetString("Username", "");
+                HttpContext.Session.SetInt32("IdCustomer", 0);
+                HttpContext.Session.SetString("Connected", "");
+                TempData["ErrorLoginMessage"] = "Username ou mot de passe incorrect";
+            }
+            return RedirectToAction("Index");
 
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

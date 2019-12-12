@@ -15,6 +15,7 @@ namespace DAL
         Customer GetByID(int id);
         Customer Add(Customer customer);
         int Update(Customer customer);
+        Customer GetByUsernamePassword(string username, string password);
     }
     public class Customers_DB : ICustomers_DB
     {
@@ -24,6 +25,37 @@ namespace DAL
         {
             Configuration = conf;
             connectionString = Configuration.GetConnectionString("DefaultConnection");
+        }
+        public Customer GetByUsernamePassword(string username, string password)
+        {
+            Customer customer = null;
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM Customer WHERE Username = @Username AND Password = @Password";
+                    SqlCommand cmd = new SqlCommand(query, cn);
+                    cmd.Parameters.AddWithValue("@Username", username);
+                    cmd.Parameters.AddWithValue("@Password", password);
+
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            customer = serializeCustomer(dr);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return customer;
         }
         public Customer Add(Customer customer)
         {

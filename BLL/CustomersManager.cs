@@ -13,6 +13,7 @@ namespace BLL
         Customer GetByID(int id);
         Customer Add(Customer customer);
         int Update(Customer customer);
+        Customer GetByUsernamePassword(string username, string password);
     }
 
     public class CustomersManager : ICustomersManager
@@ -42,6 +43,11 @@ namespace BLL
         public int Update(Customer customer)
         {
             return customers_db.Update(customer);
+        }
+        public Customer GetByUsernamePassword(string username, string password)
+        {
+            
+            return customers_db.GetByUsernamePassword(username, password);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BLL;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using WEB_APP.Models;
 
 namespace WEB_APP.Controllers
@@ -24,8 +25,12 @@ namespace WEB_APP.Controllers
         }
         public IActionResult List()
         {
+            if (HttpContext.Session.GetInt32("IdCustomer") == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             List <RestaurantsByCity> restaurantsByCity = new List<RestaurantsByCity>();
-            
+            ViewBag.Username = HttpContext.Session.GetString("Username");
             foreach (var city in citiesManager.GetAll())
             {
                 List<Restaurant> restos = new List<Restaurant>();
