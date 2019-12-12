@@ -14,9 +14,11 @@ namespace BLL
         int Delete(int id);
         Dish Add(Dish dish);
         int Update(Dish dish);
+
+        List<Dish> GetByRestaurant(int id);
     }
 
-    class DishesManager : IDishesManager
+    public class DishesManager : IDishesManager
     {
 
         private IDishes_DB dishes_db { get; }
@@ -50,6 +52,19 @@ namespace BLL
         public int Update(Dish dish)
         {
             return dishes_db.Update(dish);
+        }
+
+        public List<Dish> GetByRestaurant(int id)
+        {
+            List<Dish> dishes = new List<Dish>();
+            foreach (var dish in GetAll())
+            {
+                if(dish.IdRestaurant == id)
+                {
+                    dishes.Add(dish);
+                }
+            }
+            return dishes;
         }
     }
 }

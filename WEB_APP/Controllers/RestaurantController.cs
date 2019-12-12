@@ -14,10 +14,12 @@ namespace WEB_APP.Controllers
     {
         private IRestaurantsManager restaurantsManager { get; }
         private ICitiesManager citiesManager { get; }
-        public RestaurantController(IRestaurantsManager restaurantsManager, ICitiesManager citiesManager)
+        private IDishesManager dishesManager { get; }
+        public RestaurantController(IDishesManager dishesManager, IRestaurantsManager restaurantsManager, ICitiesManager citiesManager)
         {
             this.restaurantsManager = restaurantsManager;
             this.citiesManager = citiesManager;
+            this.dishesManager = dishesManager;
         }
         public IActionResult Index()
         {
@@ -53,7 +55,19 @@ namespace WEB_APP.Controllers
         }
         public IActionResult Details(int id)
         {
-            return View(Restaurant.Serialize(restaurantsManager.GetByID(id)));
+            var resto = Restaurant.Serialize(restaurantsManager.GetByID(id));
+
+
+
+            List<Dish> dishes = new List<Dish>();
+            foreach (var dish in dishesManager.GetByRestaurant(id))
+            {
+                dishes.Add(Dish.Serialize(dish));
+            }
+            DishesByRestaurant dishesByRestaurant = new DishesByRestaurant { Restaurant = resto, Dishes=dishes };
+
+
+            return View(dishesByRestaurant);
         }
     }
 }

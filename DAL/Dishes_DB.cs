@@ -65,7 +65,7 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Name", dish.Name);
                     cmd.Parameters.AddWithValue("@Price", dish.Price);
                     cmd.Parameters.AddWithValue("@TimePrepa", dish.TimePrepa);
-                    cmd.Parameters.AddWithValue("@IdResto", dish.Restaurant.IdRestaurant);
+                    cmd.Parameters.AddWithValue("@IdResto", dish.IdRestaurant);
                     cmd.Parameters.AddWithValue("@PicPath", dish.PicPath);
 
                     cn.Open();
@@ -93,7 +93,7 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Name", dish.Name);
                     cmd.Parameters.AddWithValue("@Price", dish.Price);
                     cmd.Parameters.AddWithValue("@TimePrepa", dish.TimePrepa);
-                    cmd.Parameters.AddWithValue("@IdResto", dish.Restaurant.IdRestaurant);
+                    cmd.Parameters.AddWithValue("@IdResto", dish.IdRestaurant);
                     cmd.Parameters.AddWithValue("@id", dish.IdDish);
                     cmd.Parameters.AddWithValue("@PicPath", dish.PicPath);
                     
@@ -177,10 +177,10 @@ namespace DAL
             Dish dish = new Dish();
             dish.IdDish = (int)dr["IdDish"];
             dish.Name = (string)dr["Name"];
-            dish.Price = (float)dr["Price"];
-            dish.TimePrepa = (string)dr["TimePrepa"];
+            dish.Price = (double)dr["Price"];
+            dish.TimePrepa = (int)dr["TimePrepa"];
             dish.PicPath = (string)dr["PicPath"];
-            dish.Restaurant = null;
+            dish.IdRestaurant = (int)dr["IdResto"];
 
             return dish;
         }

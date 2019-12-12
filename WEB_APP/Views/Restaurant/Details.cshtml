@@ -1,45 +1,89 @@
-﻿@model WEB_APP.Models.Restaurant
+﻿@model WEB_APP.Models.DishesByRestaurant
 
 @{
     Layout = "_Navigation";
     ViewData["Title"] = "Détails du restaurant";
 }
 
-@Html.DisplayFor(model => model.Name)
+
+
+<div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+    <div class="uk-card-media-left uk-cover-container">
+        <img src="/images/Image_VS_resto/@Html.DisplayFor(model => model.Restaurant.PicPath)" alt="" uk-cover>
+        <canvas width="600" height="400"></canvas>
+    </div>
+    <div>
+        <div class="uk-card-body">
+            <h3 class="uk-card-title">@Html.DisplayFor(model => model.Restaurant.Name)</h3>
+            <p>Description du restaurant à ajouter </p>
+        </div>
+    </div>
+</div>
+
+<h1 class="uk-heading-line uk-text-center"><span>Liste des plats</span></h1>
+
+<div class="uk-child-width-1-5@m" uk-grid>
+
+    @foreach (var dish in Model.Dishes)
+
+    {
+    <div>
+
+        <div class="uk-card uk-box-shadow-large uk-card-default">
+            <div class="uk-card-media-top uk-cover-container">
+                <img src="~/images/Image_VS_dish/@Html.DisplayFor(modelIrem => dish.PicPath)" alt="">
+                <canvas height="100"></canvas>
+
+
+
+            </div>
+            <div class="uk-card-body">
+                <h3 class="uk-card-title">@Html.DisplayFor(modelIrem => dish.Name)</h3>
+                <h4>Prix : @Html.DisplayFor(modelIrem => dish.Price) CHF</h4>
+                <h4>Temps de préparation : @Html.DisplayFor(modelIrem => dish.TimePrepa) minutes</h4>
+            </div>
+        </div>
+    </div>
+            }
+
+     
+    </div>
+
+
 
 
 
 @*<div>
-    <h4>Restaurant</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IdCity)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IdCity)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PicPath)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PicPath)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>*@
+        <h4>Restaurant</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IdCity)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IdCity)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PicPath)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PicPath)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        <a asp-action="Index">Back to List</a>
+    </div>*@

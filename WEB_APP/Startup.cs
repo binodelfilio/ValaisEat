@@ -37,6 +37,8 @@ namespace WEB_APP
 
             services.AddScoped<ICities_DB, Cities_DB>();
             services.AddScoped<ICitiesManager, CitiesManager>();
+            services.AddScoped<IDishes_DB, Dishes_DB>();
+            services.AddScoped<IDishesManager, DishesManager>();
 
             services.AddScoped<IRestaurants_DB, Restaurants_DB>();
             services.AddScoped<IRestaurantsManager, RestaurantsManager>();

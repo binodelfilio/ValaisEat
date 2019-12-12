@@ -8,13 +8,13 @@ namespace DTO
     {
         public int IdDish { get; set; }
         public string Name { get; set; }
-        public float Price { get; set; }
+        public double Price { get; set; }
 
         /*
          * TimePrepa => Unit: minute
          */
-        public string TimePrepa { get; set; }
-        public Restaurant Restaurant { get; set; }
+        public int TimePrepa { get; set; }
+        public int IdRestaurant { get; set; }
         public String PicPath { get; set; }
     }
 }
