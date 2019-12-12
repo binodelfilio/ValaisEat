@@ -49,7 +49,7 @@ namespace WEB_APP.Controllers
             if (staff != null)
             {
                 setConnectedUser(staff.IdStaff, staff.Firstname);
-                return RedirectToAction("Details", "Admin");
+                return RedirectToAction("Index", "Admin");
             }
             else
             {

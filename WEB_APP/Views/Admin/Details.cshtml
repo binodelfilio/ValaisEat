@@ -1,60 +1,55 @@
-﻿@model WEB_APP.Models.Staff
+﻿@model DTO.Staff
 @{
     Layout = "_Navigation";
     ViewData["Title"] = "Détails du staff";
 }
 
 
+    <form asp-action="Update" class="uk-form-horizontal">
+        <input asp-for="IdStaff" type="hidden" required>
 
-<h4>Staff</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Details">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="IdStaff" class="control-label"></label>
-                <input asp-for="IdStaff" class="form-control" />
-                <span asp-validation-for="IdStaff" class="text-danger"></span>
+        <input asp-for="IdCity" type="hidden" required>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Prénom</label>
+            <div class="uk-form-controls">
+                <input asp-for="Firstname" class="uk-input uk-form-width-medium" type="text" placeholder="Medium" required>
             </div>
-            <div class="form-group">
-                <label asp-for="Firstname" class="control-label"></label>
-                <input asp-for="Firstname" class="form-control" />
-                <span asp-validation-for="Firstname" class="text-danger"></span>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Nom</label>
+            <div class="uk-form-controls">
+                <input asp-for="Lastname" class="uk-input uk-form-width-medium" type="text" placeholder="Medium" required>
             </div>
-            <div class="form-group">
-                <label asp-for="Lastname" class="control-label"></label>
-                <input asp-for="Lastname" class="form-control" />
-                <span asp-validation-for="Lastname" class="text-danger"></span>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Pseudo</label>
+            <div class="uk-form-controls">
+                <input asp-for="Username" class="uk-input uk-form-width-medium" type="text" placeholder="Medium" required>
             </div>
-            <div class="form-group">
-                <label asp-for="Birthdate" class="control-label"></label>
-                <input asp-for="Birthdate" class="form-control" />
-                <span asp-validation-for="Birthdate" class="text-danger"></span>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Adresse</label>
+            <div class="uk-form-controls">
+                <input asp-for="Address" class="uk-input uk-form-width-medium" type="text" required>
             </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Date de naissance</label>
+            <div class="uk-form-controls">
+                <input asp-for="Birthdate" class="uk-input uk-form-width-medium" type="date" placeholder="Medium" required>
             </div>
-            <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Mot de passe</label>
+            <div class="uk-form-controls">
+                <input asp-for="Password" class="uk-input uk-form-width-medium" type="text" placeholder="Medium" required>
             </div>
-            <div class="form-group">
-                <label asp-for="IdCity" class="control-label"></label>
-                <input asp-for="IdCity" class="form-control" />
-                <span asp-validation-for="IdCity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
-</div>
+        </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+        <div class="uk-margin">
+            <input type="submit" class="uk-button uk-button-primary uk-button-medium " value="Sauvegarder" placeholder="Medium" />
+        </div>
+    </form>
+
+
 

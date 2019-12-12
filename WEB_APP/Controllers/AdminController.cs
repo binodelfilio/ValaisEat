@@ -16,16 +16,22 @@ namespace WEB_APP.Controllers
         {
             this.staffManager = staffManager;
         }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
         public IActionResult Details()
         {
             var id = (int)HttpContext.Session.GetInt32("IdUser");
             
-            var staff = Staff.Serialize(staffManager.GetByID(id));
+            var staff = staffManager.GetByID(id);
             return View(staff);
         }
-        public IActionResult Update()
+        public IActionResult Update(DTO.Staff s)
         {
-            return View();
+            staffManager.Update(s);
+            return RedirectToAction("Details");
         }
     }
 }
