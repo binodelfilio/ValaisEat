@@ -31,11 +31,8 @@
 
         <div class="uk-card uk-box-shadow-large uk-card-default">
             <div class="uk-card-media-top uk-cover-container">
-                <img src="~/images/Image_VS_dish/@Html.DisplayFor(modelIrem => dish.PicPath)" alt="">
-                <canvas height="100"></canvas>
-
-
-
+                <img src="~/images/Image_VS_dish/@Html.DisplayFor(modelIrem => dish.PicPath)" alt="" uk-cover>
+                <canvas height="200"></canvas>
             </div>
             <div class="uk-card-body">
                 <h3 class="uk-card-title">@Html.DisplayFor(modelIrem => dish.Name)</h3>

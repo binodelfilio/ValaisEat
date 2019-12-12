@@ -14,9 +14,10 @@ namespace BLL
         int Delete(int id);
         Staff Add(Staff staff);
         int Update(Staff staff);
+        Staff GetByUsernamePassword(string username, string password);
     }
 
-    class StaffsManager : IStaffsManager
+    public class StaffsManager : IStaffsManager
     {
         private IStaffs_DB staff_db { get; }
 
@@ -25,7 +26,10 @@ namespace BLL
             this.staff_db = staff_db;
 ;
         }
-
+        public Staff GetByUsernamePassword(string username, string password)
+        {
+            return staff_db.GetByUsernamePassword(username, password);
+        }
         public Staff Add(Staff staff)
         {
             return staff_db.Add(staff);

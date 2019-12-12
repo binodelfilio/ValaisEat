@@ -27,7 +27,7 @@ namespace WEB_APP.Controllers
         }
         public IActionResult List()
         {
-            if (HttpContext.Session.GetInt32("IdCustomer") == 0)
+            if (HttpContext.Session.GetInt32("IdUser") == 0)
             {
                 return RedirectToAction("Index", "Home");
             }

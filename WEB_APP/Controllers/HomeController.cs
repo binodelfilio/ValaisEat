@@ -13,13 +13,15 @@ namespace WEB_APP.Controllers
     public class HomeController : Controller
     {
         private ICustomersManager customersManager { get; set; }
-        public HomeController(ICustomersManager customersManager)
+        private IStaffsManager staffsManager { get; set; }
+        public HomeController(ICustomersManager customersManager, IStaffsManager staffsManager)
         {
             this.customersManager = customersManager;
+            this.staffsManager = staffsManager;
         }
         public IActionResult Index()
         {
-            
+            setNotConnected();
             return View();
         }
 
@@ -30,18 +32,43 @@ namespace WEB_APP.Controllers
             @TempData["ErrorLoginMessage"] = "";
             if (customer != null)
             {
-                HttpContext.Session.SetString("Firstname", customer.Firstname);
-                HttpContext.Session.SetInt32("IdCustomer", customer.IdCustomer);
+                setConnectedUser(customer.IdCustomer, customer.Firstname);
                 return RedirectToAction("List", "Restaurant");
             } else
             {
-                HttpContext.Session.SetString("Username", "");
-                HttpContext.Session.SetInt32("IdCustomer", 0);
-                HttpContext.Session.SetString("Connected", "");
+                setNotConnected();
                 TempData["ErrorLoginMessage"] = "Username ou mot de passe incorrect";
             }
             return RedirectToAction("Index");
 
         }
+        public IActionResult StaffLogin(Login l)
+        {
+            var staff = staffsManager.GetByUsernamePassword(l.Username, l.Password);
+            @TempData["ErrorLoginMessage"] = "";
+            if (staff != null)
+            {
+                setConnectedUser(staff.IdStaff, staff.Firstname);
+                return RedirectToAction("Details", "Admin");
+            }
+            else
+            {
+                setNotConnected();
+                TempData["ErrorLoginMessage"] = "Username ou mot de passe incorrect";
+            }
+            return RedirectToAction("Index");
+
+        }
+        private void setNotConnected()
+        {
+            HttpContext.Session.SetString("Firstname", "");
+            HttpContext.Session.SetInt32("IdUser", 0);
+        }
+        private void setConnectedUser(int id, string firstname)
+        {
+            HttpContext.Session.SetString("Firstname", firstname);
+            HttpContext.Session.SetInt32("IdUser", id);
+        }
+
     }
 }

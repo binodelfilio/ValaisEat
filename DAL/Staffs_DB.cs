@@ -16,6 +16,7 @@ namespace DAL
         int Delete(int id);
         Staff Add(Staff staff);
         int Update(Staff staff);
+        Staff GetByUsernamePassword(string username, string password);
     }
     public class Staffs_DB : IStaffs_DB
     {
@@ -26,6 +27,39 @@ namespace DAL
             Configuration = conf;
             connectionString = Configuration.GetConnectionString("DefaultConnection");
         }
+       
+        public Staff GetByUsernamePassword(string username, string password)
+        {
+            Staff staff = null;
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM Staff WHERE Username = @Username AND Password = @Password";
+                    SqlCommand cmd = new SqlCommand(query, cn);
+                    cmd.Parameters.AddWithValue("@Username", username);
+                    cmd.Parameters.AddWithValue("@Password", password);
+
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            staff = serializeStaff(dr);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return staff;
+        }
+        
         public int Delete(int id)
         {
             int result = 0;

@@ -15,9 +15,6 @@ namespace WEB_APP.Controllers
         }
         public IActionResult Deconnexion()
         {
-            HttpContext.Session.SetString("Username", "");
-            HttpContext.Session.SetInt32("IdCustomer", 0);
-            HttpContext.Session.SetString("Connected", "");
             return RedirectToAction("Index", "Home");
 
 

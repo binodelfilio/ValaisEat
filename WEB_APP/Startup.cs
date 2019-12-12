@@ -40,6 +40,9 @@ namespace WEB_APP
             services.AddScoped<IDishes_DB, Dishes_DB>();
             services.AddScoped<IDishesManager, DishesManager>();
 
+            services.AddScoped<IStaffsManager, StaffsManager>();
+            services.AddScoped<IStaffs_DB, Staffs_DB>();
+
             services.AddScoped<IRestaurants_DB, Restaurants_DB>();
             services.AddScoped<IRestaurantsManager, RestaurantsManager>();
 
