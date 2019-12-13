@@ -33,6 +33,11 @@ namespace WEB_APP.Controllers
         {
             return View();
         }
+
+        /*
+         * Vue qui affiche la liste des restaurants au customer
+         * Si il arrive sur cette vue sans se connecter, il est automatiquement renvoyer à l'index de la home
+         */
         public IActionResult List()
         {
             if (HttpContext.Session.GetInt32("IdUser") == 0)
@@ -57,6 +62,12 @@ namespace WEB_APP.Controllers
             }
             return View(restaurantsByCity);
         }
+
+        /*
+         * Lorsque le customer clique sur le restaurant, une vue détaillée s'affiche
+         * Vue qui liste les repas selon un restaurant donné
+         */
+
         public IActionResult Details(int id)
         {
             var rest = restaurantsManager.GetByID(id);

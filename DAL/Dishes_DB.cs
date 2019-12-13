@@ -9,7 +9,9 @@ using DTO;
 
 namespace DAL
 {
-
+    /*
+     * Interface qui définit le comportement de la Dishes_DB suivante
+     */
     public interface IDishes_DB : IDB
     {
 
@@ -28,6 +30,11 @@ namespace DAL
             Configuration = conf;
             connectionString = Configuration.GetConnectionString("DefaultConnection");
         }
+
+        /*
+       * Méthode pour supprimer un objet repas grâce à son id 
+       * avec requête SQL
+       */
         public int Delete(int id)
         {
             int result = 0;
@@ -52,6 +59,11 @@ namespace DAL
 
             return result;
         }
+
+        /*
+       * Méthode pour ajouter un objet repas grâce à son id 
+       * avec requête SQL
+       */
         public Dish Add(Dish dish)
         {
             try
@@ -80,6 +92,11 @@ namespace DAL
 
             return dish;
         }
+
+        /*
+       * Méthode pour mettre à jour un objet repas 
+       * avec requête SQL
+       */
         public int Update(Dish dish)
         {
             int result = 0;
@@ -110,6 +127,11 @@ namespace DAL
 
             return result;
         }
+
+        /*
+       * Méthode pour récuperer un objet repas grâce à son id 
+       * avec requête SQL
+       */
         public Dish GetByID(int id)
         {
             Dish dish = null;
@@ -140,6 +162,11 @@ namespace DAL
 
             return dish;
         }
+
+        /*
+       * Méthode pour récuperer une liste de tous les repas de la base de données
+       * avec requête SQL
+       */
         public List<Dish> GetAll()
         {
             List<Dish> results = null;
@@ -171,6 +198,11 @@ namespace DAL
 
             return results;
         }
+
+        /*
+         * Méthode de serialisation qui permet de transformer le résultat d'un SqlDataReader en un objet Dish
+         */
+
         private Dish serializeDish(SqlDataReader dr)
         {
             // TODO: Manage to get city object => get from manager ? 

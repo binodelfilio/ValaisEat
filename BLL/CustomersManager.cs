@@ -7,6 +7,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
+
+    /*
+   * Interface qui définit le comportement de la classe CustomersManager qui suit
+   */
     public interface ICustomersManager
     {
         List<Customer> GetAll();

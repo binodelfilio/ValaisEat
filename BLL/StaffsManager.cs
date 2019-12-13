@@ -7,6 +7,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
+    /*
+    * Interface qui définit le comportement de la classe StaffsManager qui suit
+    */
     public interface IStaffsManager
     {
         List<Staff> GetAll();
@@ -26,6 +29,8 @@ namespace BLL
             this.staff_db = staff_db;
 ;
         }
+
+        
         public Staff GetByUsernamePassword(string username, string password)
         {
             return staff_db.GetByUsernamePassword(username, password);

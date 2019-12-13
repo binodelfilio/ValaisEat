@@ -12,6 +12,9 @@ namespace WEB_APP.Controllers
 {
     public class HomeController : Controller
     {
+        /*
+         * Controlleur de la partie Home (Première vue de l'application web)
+         */
         private ICustomersManager customersManager { get; set; }
         private IStaffsManager staffsManager { get; set; }
         private ICitiesManager citiesManager { get; set; }
@@ -26,6 +29,13 @@ namespace WEB_APP.Controllers
             setNotConnected();
             return View();
         }
+
+
+        /*
+         * Contrôle du username et password pour la connexion pour le CUSTOMER
+         * Si ok, affiche la vue List de la partie customer (liste des restaurants à choix)
+         * Si faux, message d'erreur
+         */
 
         [HttpPost]
         public IActionResult Login(HomeModel hm)
@@ -45,6 +55,12 @@ namespace WEB_APP.Controllers
             return RedirectToAction("Index");
 
         }
+
+        /*
+         * Contrôle du username et password pour la connexion pour le STAFF
+         * Si ok, affiche la vue Index de la partie admin
+         * Si faux, message d'erreur
+         */
         public IActionResult StaffLogin(HomeModel hm)
         {
             var l = hm.Login;
@@ -53,7 +69,7 @@ namespace WEB_APP.Controllers
             if (staff != null)
             {
                 setConnectedUser(staff.IdStaff, staff.Firstname);
-                return RedirectToAction("Details", "Admin");
+                return RedirectToAction("Index", "Admin");
             }
             else
             {
@@ -76,11 +92,19 @@ namespace WEB_APP.Controllers
             return RedirectToAction("Index");
         }
 
+
+        /*
+         * Méthode qui retourne des informations nulles de connexion à la session
+         */
         private void setNotConnected()
         {
             HttpContext.Session.SetString("Firstname", "");
             HttpContext.Session.SetInt32("IdUser", 0);
         }
+
+        /*
+         * Méthode qui transmet à la session le firstname et l'id 
+         */
         private void setConnectedUser(int id, string firstname)
         {
             HttpContext.Session.SetString("Firstname", firstname);

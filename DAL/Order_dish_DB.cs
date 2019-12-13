@@ -7,7 +7,9 @@ using DTO;
 
 namespace DAL
 {
-
+    /*
+     * Interface qui définit le comportement de la classe Order_Dish_DB suivante
+     */
     public interface IOrder_Dish_DB : IDB
     {
 
@@ -58,6 +60,10 @@ namespace DAL
 
             return result;
         }
+        /*
+        * Méthode pour supprimer une commande de plat grâce à son id 
+        * avec requête SQL
+        */
         public int Delete(int id)
         {
             int result = 0;
@@ -82,6 +88,11 @@ namespace DAL
 
             return result;
         }
+
+        /*
+        * Méthode pour ajouter une commande de plats
+        * avec requête SQL
+        */
         public Order_Dish Add(Order_Dish order_Dish)
         {
             try
@@ -107,6 +118,11 @@ namespace DAL
 
             return order_Dish;
         }
+
+        /*
+        * Méthode récuperer une commande de plat par son ID
+        * avec requête SQL
+        */
         public Order_Dish GetByID(int id)
         {
             Order_Dish order_Dish = null;
@@ -137,6 +153,11 @@ namespace DAL
 
             return order_Dish;
         }
+
+        /*
+        * Méthode pour récuperer une liste de toutes les commandes de plats
+        * avec requête SQL
+        */
         public List<Order_Dish> GetAll()
         {
             List<Order_Dish> results = null;
@@ -168,6 +189,9 @@ namespace DAL
 
             return results;
         }
+        /*
+         * Méthode de serialisation qui permet de transformer le résultat d'un SqlDataReader en un objet
+         */
         private Order_Dish serializeOrderDish(SqlDataReader dr)
         {
             // TODO: Manage to get object by id => get from manager ? 

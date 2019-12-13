@@ -1,4 +1,57 @@
-﻿@{
-    Layout = "_Navigation";
-    ViewData["Title"] = "Détail de l'utilisateur";
+﻿@model DTO.Customer
+
+@{
+   Layout = "_Navigation";
+    ViewData["Title"] = "Détails du profil";
 }
+
+
+
+
+    <form asp-action="Save" class="uk-form-horizontal">
+        <input asp-for="IdCustomer" type="hidden" required>
+        
+        <input asp-for="IdCity" type="hidden" required>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Prénom</label>
+            <div class="uk-form-controls">
+                <input asp-for="Firstname" class="uk-input uk-form-width-medium" type="text" placeholder="Medium" required>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Nom</label>
+            <div class="uk-form-controls">
+                <input asp-for="Lastname" class="uk-input uk-form-width-medium" type="text" placeholder="Medium" required>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Pseudo</label>
+            <div class="uk-form-controls">
+                <input asp-for="Username" class="uk-input uk-form-width-medium" type="text" placeholder="Medium" required>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Adresse</label>
+            <div class="uk-form-controls">
+                <input asp-for="Address" class="uk-input uk-form-width-medium" type="text" required>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Email</label>
+            <div class="uk-form-controls">
+                <input asp-for="Email" class="uk-input uk-form-width-medium" type="email" placeholder="Medium" required>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Mot de passe</label>
+            <div class="uk-form-controls">
+                <input asp-for="Password" class="uk-input uk-form-width-medium" type="text" placeholder="Medium" required>
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <input type="submit" class="uk-button uk-button-primary uk-button-medium " value="Sauvegarder" placeholder="Medium" />
+        </div>
+    </form>
+
+
