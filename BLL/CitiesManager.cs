@@ -11,12 +11,23 @@ namespace BLL
         List<City> GetAll();
         City GetByID(int id);
         City Add(City city);
-
+        City GetOrCreate(City city);
     }
     public class CitiesManager : ICitiesManager
     {
         private ICities_DB citie_db { get; }
 
+        public City GetOrCreate(City city)
+        {
+            foreach(var c in GetAll())
+            {
+                if (city.Name == c.Name && city.NPA == c.NPA)
+                {
+                    return c;
+                }
+            }
+            return Add(city);
+        }
         public CitiesManager(ICities_DB citie_db)
         {
             this.citie_db = citie_db;

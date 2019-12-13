@@ -15,11 +15,19 @@ namespace WEB_APP.Controllers
         private IRestaurantsManager restaurantsManager { get; }
         private ICitiesManager citiesManager { get; }
         private IDishesManager dishesManager { get; }
-        public RestaurantController(IDishesManager dishesManager, IRestaurantsManager restaurantsManager, ICitiesManager citiesManager)
+        private IOrder_DishManager order_DishManager { get; }
+        private IOrdersManager ordersManager { get; }
+        public RestaurantController(IDishesManager dishesManager, 
+            IOrdersManager ordersManager,
+            IOrder_DishManager order_DishManager,
+            IRestaurantsManager restaurantsManager, 
+            ICitiesManager citiesManager)
         {
             this.restaurantsManager = restaurantsManager;
             this.citiesManager = citiesManager;
             this.dishesManager = dishesManager;
+            this.ordersManager = ordersManager;
+            this.order_DishManager = order_DishManager;
         }
         public IActionResult Index()
         {
@@ -31,6 +39,7 @@ namespace WEB_APP.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            getCurrentPanier();
             List <RestaurantsByCity> restaurantsByCity = new List<RestaurantsByCity>();
             ViewBag.Username = HttpContext.Session.GetString("Username");
             foreach (var city in citiesManager.GetAll())
@@ -38,11 +47,6 @@ namespace WEB_APP.Controllers
                 List<Restaurant> restos = new List<Restaurant>();
                 foreach (var restaurant in restaurantsManager.GetByCityId(city.IdCity))
                 {
-                    restos.Add(Restaurant.Serialize(restaurant));
-                    restos.Add(Restaurant.Serialize(restaurant));
-                    restos.Add(Restaurant.Serialize(restaurant));
-                    restos.Add(Restaurant.Serialize(restaurant));
-                    restos.Add(Restaurant.Serialize(restaurant));
                     restos.Add(Restaurant.Serialize(restaurant));
                     restos.Add(Restaurant.Serialize(restaurant));
                     restos.Add(Restaurant.Serialize(restaurant));
@@ -55,19 +59,39 @@ namespace WEB_APP.Controllers
         }
         public IActionResult Details(int id)
         {
-            var resto = Restaurant.Serialize(restaurantsManager.GetByID(id));
-
-
+            var rest = restaurantsManager.GetByID(id);
+            if(rest == null)
+            {
+                return RedirectToAction("List");
+            }
 
             List<Dish> dishes = new List<Dish>();
             foreach (var dish in dishesManager.GetByRestaurant(id))
             {
                 dishes.Add(Dish.Serialize(dish));
             }
-            DishesByRestaurant dishesByRestaurant = new DishesByRestaurant { Restaurant = resto, Dishes=dishes };
-
-
+            DishesByRestaurant dishesByRestaurant = new DishesByRestaurant { Restaurant = Restaurant.Serialize(rest), Dishes=dishes };
             return View(dishesByRestaurant);
+        }
+        public IActionResult AddDishToOrder(int idDish, int idResto)
+        {
+            var order = getCurrentPanier();
+            order.NbrDish += 1;
+            order.TotalPrice += dishesManager.GetByID(idDish).Price;
+
+            ordersManager.Update(order);
+            order_DishManager.GetOrCreate(new DTO.Order_Dish { IdDish = idDish, IdOrder = order.IdOrder, IdOrder_Dish = 0, Quantity = 1 });
+
+            return RedirectToAction("Details", new { id = idResto });
+        }
+
+        // Un controller peut-il avoir un autre controller en paramètre
+        private DTO.Order getCurrentPanier()
+        {
+            var userId = (int)HttpContext.Session.GetInt32("IdUser");
+            var order = ordersManager.GetCurrentOrCreate(userId);
+            HttpContext.Session.SetInt32("NbrDish", order.NbrDish);
+            return order;
         }
     }
 }

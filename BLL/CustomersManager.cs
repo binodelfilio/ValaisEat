@@ -27,6 +27,13 @@ namespace BLL
 
         public Customer Add(Customer customer)
         {
+            foreach(var c in GetAll())
+            {
+                if(customer.Username == c.Username || customer.Email == c.Email)
+                {
+                    return null;
+                }
+            }
             return customers_db.Add(customer);
         }
 

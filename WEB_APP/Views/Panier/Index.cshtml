@@ -1,7 +1,62 @@
-﻿
+﻿@model IEnumerable<WEB_APP.Models.Panier>
 @{
     Layout = "_Navigation";
     ViewData["Title"] = "Panier";
 }
 
 
+@foreach (var panier in Model)
+{
+    //if(order.Status == DTO.Order.IN_PROGRESS)
+    //{
+    <ul uk-accordion="multiple: true">
+
+        <li class="@((panier.Order.Status == DTO.Order.IN_PROGRESS)?"uk-open":"")">
+            <a class="uk-accordion-title" href="#">@panier.Order.StatusStr - @panier.Order.DatetimeCreated </a>
+
+
+
+
+
+
+
+
+            <div class="uk-accordion-content">
+                <ul class="uk-list uk-list-divider">
+                    @foreach (var od in panier.OrderDishes)
+                    {
+
+                        <li>
+                            <div class="uk-grid-small" uk-grid>
+                                <form asp-action="Delete"></form>
+                                <a href="@Url.Action("Delete", new { id = od.Order_dish.IdOrder_Dish })" class="uk-icon-link" uk-icon="trash"></a>
+                                <div class="uk-width-expand" uk-leader>@od.Order_dish.Quantity x @od.Dish.Name</div>
+                                <div>@(od.Dish.Price * od.Order_dish.Quantity) CHF</div>
+                            </div>
+                        </li>
+
+
+                    }
+                    <li>
+                        <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-expand" uk-leader>TOTAL</div>
+                            <div>@panier.Order.TotalPrice CHF</div>
+                        </div>
+                    </li>
+                </ul>
+                <form asp-action="Confirm" method="get">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">Heure de livraison (Minutes) :</label>
+                        <div class="uk-form-controls">
+                            <input asp-for="@panier.Order.TimeToDelivery" class="uk-input" type="number" step="15" />
+                            <input asp-for="@panier.Order.IdOrder"type="hidden" />
+                        </div>
+                    </div>
+
+
+                    <button type="submit" class="uk-button uk-button-primary uk-button-large" style="float:right;">Confirmer la commande</button>
+                </form>
+                </div>
+        </li>
+    </ul>
+}

@@ -6,7 +6,19 @@
 }
 
 
+<ul class="uk-pagination">
 
+    <li >
+        <a href="@(Model.Restaurant.Id-1 != 0 ? Url.Action("Details", "Restaurant", new { id = Model.Restaurant.Id-1 }) :"" )">
+            <span uk-pagination-previous></span> Précédent
+        </a>
+    </li>
+    <li class="uk-margin-auto-left">
+        <a href="@(Model.Restaurant.Id != 0 ? Url.Action("Details", "Restaurant", new { id = Model.Restaurant.Id+1 }) :"" )">
+            Suivant <span uk-pagination-next></span>
+        </a>
+    </li>
+</ul>
 <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
     <div class="uk-card-media-left uk-cover-container">
         <img src="/images/Image_VS_resto/@Html.DisplayFor(model => model.Restaurant.PicPath)" alt="" uk-cover>
@@ -27,60 +39,28 @@
     @foreach (var dish in Model.Dishes)
 
     {
-    <div>
+        <div>
 
-        <div class="uk-card uk-box-shadow-large uk-card-default">
-            <div class="uk-card-media-top uk-cover-container">
-                <img src="~/images/Image_VS_dish/@Html.DisplayFor(modelIrem => dish.PicPath)" alt="" uk-cover>
-                <canvas height="200"></canvas>
-            </div>
-            <div class="uk-card-body">
-                <h3 class="uk-card-title">@Html.DisplayFor(modelIrem => dish.Name)</h3>
-                <h4>Prix : @Html.DisplayFor(modelIrem => dish.Price) CHF</h4>
-                <h4>Temps de préparation : @Html.DisplayFor(modelIrem => dish.TimePrepa) minutes</h4>
+            <div class="uk-card uk-box-shadow-large uk-card-default">
+
+                <div class="uk-card-media-top uk-cover-container">
+                    <img src="~/images/Image_VS_dish/@Html.DisplayFor(modelIrem => dish.PicPath)" alt="" uk-cover>
+                    <canvas height="200"></canvas>
+                    @Html.DisplayFor(modelIrem => dish.IdDish)
+                    <a class="uk-position-absolute uk-transform-center"
+                       style="right: 0px; top: 20px; color: white;"
+                       href="@Url.Action("AddDishToOrder", new { idDish = dish.IdDish, idResto = Model.Restaurant.Id })" uk-marker></a>
+
+                </div>
+                <div class="uk-card-body">
+                    <h3 class="uk-card-title">@Html.DisplayFor(modelIrem => dish.Name)</h3>
+                    <h4>Prix : @Html.DisplayFor(modelIrem => dish.Price) CHF</h4>
+                    <h4>Temps de préparation : @Html.DisplayFor(modelIrem => dish.TimePrepa) minutes</h4>
+                </div>
             </div>
         </div>
-    </div>
-            }
-
-     
-    </div>
+    }
 
 
+</div>
 
-
-
-@*<div>
-        <h4>Restaurant</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Address)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Address)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.IdCity)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.IdCity)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.PicPath)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.PicPath)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        <a asp-action="Index">Back to List</a>
-    </div>*@

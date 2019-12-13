@@ -20,7 +20,6 @@
                     </a>
                 </div>
                 <div class="uk-navbar-center">
-                    <h1 class="title-nav">@ViewData["Title"]</h1>
                 </div>
                 <div class="uk-navbar-right">
                     <ul class="uk-navbar-nav">
@@ -53,7 +52,7 @@
                     </a>
                 </div>
                 <div class="uk-navbar-center">
-                    <h1 class="title-nav">@ViewData["Title"]</h1>
+                    <h1 class="title-nav"></h1>
                 </div>
                 <div class="uk-navbar-right">
                     <ul class="uk-navbar-nav">
@@ -77,6 +76,7 @@
                         <li>
                             <a class="@(Context.Request.Path == "/Panier" ? "active" : "")" href="@Url.Action("Index", "Panier")">
                                 <span class="uk-icon-link" uk-icon="icon: cart; ratio: 2.5"></span>
+                                <span class="uk-badge"> @Context.Session.GetInt32("NbrDish")</span>
                             </a>
                         </li>
                     </ul>
@@ -89,7 +89,7 @@
         </nav>
         <div class="uk-padding-small uk-margin-large-left uk-margin-large-right">
             <h5 style="text-align:right">Bienvenue @Context.Session.GetString("Firstname")</h5>
-            <hr class="uk-divider-icon">
+            <h1 class="uk-heading-line uk-text-center"><span>@ViewData["Title"]</span></h1>
             @RenderBody()
 
         </div>

@@ -8,7 +8,7 @@ namespace DTO
     {
         public int IdDish { get; set; }
         public string Name { get; set; }
-        public double Price { get; set; }
+        public int Price { get; set; }
 
         /*
          * TimePrepa => Unit: minute

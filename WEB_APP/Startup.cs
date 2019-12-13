@@ -29,7 +29,7 @@ namespace WEB_APP
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
@@ -37,8 +37,15 @@ namespace WEB_APP
 
             services.AddScoped<ICities_DB, Cities_DB>();
             services.AddScoped<ICitiesManager, CitiesManager>();
+
             services.AddScoped<IDishes_DB, Dishes_DB>();
             services.AddScoped<IDishesManager, DishesManager>();
+
+            services.AddScoped<IOrdersManager, OrdersManager>();
+            services.AddScoped<IOrder_DB, Orders_DB>();
+
+            services.AddScoped<IOrder_DishManager, Order_DishManager>();
+            services.AddScoped<IOrder_Dish_DB, Order_Dish_DB>();
 
             services.AddScoped<IStaffsManager, StaffsManager>();
             services.AddScoped<IStaffs_DB, Staffs_DB>();

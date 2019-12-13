@@ -177,7 +177,7 @@ namespace DAL
             Dish dish = new Dish();
             dish.IdDish = (int)dr["IdDish"];
             dish.Name = (string)dr["Name"];
-            dish.Price = (double)dr["Price"];
+            dish.Price = (int)dr["Price"];
             dish.TimePrepa = (int)dr["TimePrepa"];
             dish.PicPath = (string)dr["PicPath"];
             dish.IdRestaurant = (int)dr["IdResto"];

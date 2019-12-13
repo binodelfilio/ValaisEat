@@ -14,10 +14,12 @@ namespace WEB_APP.Controllers
     {
         private ICustomersManager customersManager { get; set; }
         private IStaffsManager staffsManager { get; set; }
-        public HomeController(ICustomersManager customersManager, IStaffsManager staffsManager)
+        private ICitiesManager citiesManager { get; set; }
+        public HomeController(ICustomersManager customersManager, IStaffsManager staffsManager, ICitiesManager citiesManager)
         {
             this.customersManager = customersManager;
             this.staffsManager = staffsManager;
+            this.citiesManager = citiesManager;
         }
         public IActionResult Index()
         {
@@ -26,8 +28,9 @@ namespace WEB_APP.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(Login l)
+        public IActionResult Login(HomeModel hm)
         {
+            var l = hm.Login;
             var customer = customersManager.GetByUsernamePassword(l.Username, l.Password);
             @TempData["ErrorLoginMessage"] = "";
             if (customer != null)
@@ -42,8 +45,9 @@ namespace WEB_APP.Controllers
             return RedirectToAction("Index");
 
         }
-        public IActionResult StaffLogin(Login l)
+        public IActionResult StaffLogin(HomeModel hm)
         {
+            var l = hm.Login;
             var staff = staffsManager.GetByUsernamePassword(l.Username, l.Password);
             @TempData["ErrorLoginMessage"] = "";
             if (staff != null)
@@ -59,6 +63,19 @@ namespace WEB_APP.Controllers
             return RedirectToAction("Index");
 
         }
+        [HttpPost]
+        public IActionResult CreateLogin(HomeModel homeModel)
+        {
+            var city = citiesManager.GetOrCreate(homeModel.City);
+            homeModel.Customer.IdCity = city.IdCity;
+            var curtomer = customersManager.Add(homeModel.Customer);
+            if (curtomer == null)
+            {
+                TempData["ErrorLoginMessage"] = "Email ou username déjà existant";
+            }
+            return RedirectToAction("Index");
+        }
+
         private void setNotConnected()
         {
             HttpContext.Session.SetString("Firstname", "");
@@ -69,6 +86,5 @@ namespace WEB_APP.Controllers
             HttpContext.Session.SetString("Firstname", firstname);
             HttpContext.Session.SetInt32("IdUser", id);
         }
-
     }
 }

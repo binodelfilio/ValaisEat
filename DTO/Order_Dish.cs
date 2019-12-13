@@ -8,9 +8,8 @@ namespace DTO
     {
         public int IdOrder_Dish { get; set; }
         public int Quantity { get; set; }
-        public DateTime DateTime { get; set; }
-        public Dish Dish { get; set; }
-        public Order Order { get; set; }
+        public int IdDish { get; set; }
+        public int IdOrder { get; set; }
 
     }
 }

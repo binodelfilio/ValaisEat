@@ -168,7 +168,6 @@ namespace DAL
         }
         private Restaurant serializeRestaurant(SqlDataReader dr)
         {
-            // TODO: Manage to get object by id => get from manager ? 
             Restaurant restaurant = new Restaurant();
 
             restaurant.IdRestaurant = (int)dr["idResto"];

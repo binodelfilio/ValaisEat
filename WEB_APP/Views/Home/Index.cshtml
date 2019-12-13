@@ -1,4 +1,5 @@
-﻿@model WEB_APP.Models.Login
+﻿@model WEB_APP.Models.HomeModel
+
 @{
     ViewData["Title"] = "Home";
 }
@@ -13,8 +14,9 @@
                 <div class="uk-width-1-1@m">
                     <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
                         <ul uk-tab>
-                            <li><a href="">Customer</a></li>
-                            <li><a href="">Staff</a></li>
+                            <li><a href="">Client</a></li>
+                            <li><a href="">Employé</a></li>
+                            <li><a href="">Nouveau compte</a></li>
                         </ul>
 
                         <!-- This is the container of the content items -->
@@ -27,17 +29,17 @@
                                     <div class="uk-margin">
                                         <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: mail"></span>
-                                            <input asp-for="Username" class="uk-input uk-form-large" type="text" value="jean.her" placeholder="Username">
+                                            <input asp-for="Login.Username" class="uk-input uk-form-large" type="text" value="jean.her" placeholder="Utilisateur">
                                         </div>
                                     </div>
                                     <div class="uk-margin">
                                         <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: user"></span>
-                                            <input asp-for="Password" class="uk-input uk-form-large" type="password" value="dfsalkfad3049" placeholder="Password">
+                                            <input asp-for="Login.Password" class="uk-input uk-form-large" type="password" value="dfsalkfad3049" placeholder="Mot de passe">
                                         </div>
                                     </div>
                                     <div class="uk-margin">
-                                        <input type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1" value="Customer login" />
+                                        <input type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1" value="Login client" />
                                     </div>
                                 </form>
                             </li>
@@ -46,17 +48,73 @@
                                     <div class="uk-margin">
                                         <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: mail"></span>
-                                            <input asp-for="Username" class="uk-input uk-form-large" type="text" value="florian.hedman" placeholder="Username">
+                                            <input asp-for="Login.Username" class="uk-input uk-form-large" type="text" value="florian.hedman" placeholder="Username">
                                         </div>
                                     </div>
                                     <div class="uk-margin">
                                         <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: user"></span>
-                                            <input asp-for="Password" class="uk-input uk-form-large" type="password" value="dfasd987" placeholder="Password">
+                                            <input asp-for="Login.Password" class="uk-input uk-form-large" type="password" value="dfasd987" placeholder="Password">
                                         </div>
                                     </div>
                                     <div class="uk-margin">
-                                        <input type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1" value="Staff login" />
+                                        <input type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1" value="Login employée" />
+                                    </div>
+                                </form>
+                            </li>
+                            <li>
+                                <form asp-action="CreateLogin">
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <label class="uk-form-label" for="form-horizontal-text">Email</label>
+                                            <input class="uk-input uk-form-large" asp-for="Customer.Email" value="albaindufils@gmail.com" type="email" placeholder="Email" required>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <label class="uk-form-label" for="form-horizontal-text">Username</label>
+                                            <input class="uk-input uk-form-large" asp-for="Customer.Username" value="albaindufils" type="text" placeholder="Username" required>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <label class="uk-form-label" for="form-horizontal-text">Prénom</label>
+                                            <input class="uk-input uk-form-large" type="text" value="albain" asp-for="Customer.Firstname" placeholder="Prénom" required>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <label class="uk-form-label" for="form-horizontal-text">Nom</label>
+                                            <input class="uk-input uk-form-large" type="text" value="dufils" asp-for="Customer.Lastname" placeholder="Nom" required>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <label class="uk-form-label" for="form-horizontal-text">Mot de passe</label>
+                                            <input class="uk-input uk-form-large" type="password" value="test" asp-for="Customer.Password" placeholder="Mot de passe" required />
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <label class="uk-form-label" for="form-horizontal-text">Adresse</label>
+                                            <input class="uk-input uk-form-large" type="text" value="Rue de la fontaine 90" asp-for="Customer.Address" placeholder="Address" required />
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <label class="uk-form-label" for="form-horizontal-text">NPA</label>
+                                            <input class="uk-input uk-form-large" type="text" value="1926" asp-for="City.NPA" placeholder="NPA" required />
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <label class="uk-form-label" for="form-horizontal-text">Ville</label>
+                                            <input class="uk-input uk-form-large" type="text" value="Fully" asp-for="City.Name" placeholder="Ville" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <input type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1" value="Nouveau compte" />
                                     </div>
                                 </form>
                             </li>
