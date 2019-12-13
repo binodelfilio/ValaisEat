@@ -6,6 +6,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
+    /*
+   * Interface qui définit le comportement de la classe CitiesManager qui suit
+   */
     public interface ICitiesManager
     {
         List<City> GetAll();

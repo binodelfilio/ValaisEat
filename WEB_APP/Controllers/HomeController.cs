@@ -12,6 +12,9 @@ namespace WEB_APP.Controllers
 {
     public class HomeController : Controller
     {
+        /*
+         * Controlleur de la partie Home (Première vue de l'application web)
+         */
         private ICustomersManager customersManager { get; set; }
         private IStaffsManager staffsManager { get; set; }
         public HomeController(ICustomersManager customersManager, IStaffsManager staffsManager)
@@ -24,6 +27,13 @@ namespace WEB_APP.Controllers
             setNotConnected();
             return View();
         }
+
+
+        /*
+         * Contrôle du username et password pour la connexion pour le CUSTOMER
+         * Si ok, affiche la vue List de la partie customer (liste des restaurants à choix)
+         * Si faux, message d'erreur
+         */
 
         [HttpPost]
         public IActionResult Login(Login l)
@@ -42,6 +52,12 @@ namespace WEB_APP.Controllers
             return RedirectToAction("Index");
 
         }
+
+        /*
+         * Contrôle du username et password pour la connexion pour le STAFF
+         * Si ok, affiche la vue Index de la partie admin
+         * Si faux, message d'erreur
+         */
         public IActionResult StaffLogin(Login l)
         {
             var staff = staffsManager.GetByUsernamePassword(l.Username, l.Password);
@@ -59,11 +75,19 @@ namespace WEB_APP.Controllers
             return RedirectToAction("Index");
 
         }
+
+        /*
+         * Méthode qui retourne des informations nulles de connexion à la session
+         */
         private void setNotConnected()
         {
             HttpContext.Session.SetString("Firstname", "");
             HttpContext.Session.SetInt32("IdUser", 0);
         }
+
+        /*
+         * Méthode qui transmet à la session le firstname et l'id 
+         */
         private void setConnectedUser(int id, string firstname)
         {
             HttpContext.Session.SetString("Firstname", firstname);

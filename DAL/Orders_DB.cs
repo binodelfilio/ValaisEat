@@ -7,6 +7,9 @@ using DTO;
 
 namespace DAL
 {
+    /*
+     * Interface qui définit le comportement de la Orders_DB suivante
+     */
     public interface IOrder_DB : IDB
     {
 
@@ -24,6 +27,11 @@ namespace DAL
             Configuration = conf;
             connectionString = Configuration.GetConnectionString("DefaultConnection");
         }
+
+        /*
+        * Méthode pour supprimer une commande grâce à son id 
+        * avec requête SQL
+        */
         public int Delete(int id)
         {
             int result = 0;
@@ -48,6 +56,11 @@ namespace DAL
 
             return result;
         }
+
+        /*
+         * Méthode d'ajout d'un objet commande dans la base de donnée
+         * avec requête SQL
+         */
         public Order Add(Order order)
         {
             try
@@ -73,6 +86,11 @@ namespace DAL
 
             return order;
         }
+
+        /*
+         * Méthode pour récuperer une commande grâce à son id
+         * avec requête SQL
+         */
         public Order GetByID(int id)
         {
             Order order = null;
@@ -103,6 +121,12 @@ namespace DAL
 
             return order;
         }
+
+
+        /*
+         * Méthode de récuperation d'une liste de toutes les commandes
+         * avec requête SQL
+         */
         public List<Order> GetAll()
         {
             List<Order> results = null;
@@ -134,6 +158,9 @@ namespace DAL
 
             return results;
         }
+        /*
+         * Méthode de serialisation qui permet de transformer le résultat d'un SqlDataReader en un objet
+         */
         private Order serializeOrder(SqlDataReader dr)
         {
             // TODO: Manage to get object by id => get from manager ? 

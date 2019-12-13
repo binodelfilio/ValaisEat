@@ -9,6 +9,13 @@ using WEB_APP.Models;
 
 namespace WEB_APP.Controllers
 {
+    /*
+     * Controlleur de la partie Admin/Staff
+     * Plusieurs vues utilisées 
+     *  
+     */
+
+
     public class AdminController : Controller
     {
         public IStaffsManager staffManager { get; set; }
@@ -21,6 +28,10 @@ namespace WEB_APP.Controllers
         {
             return View();
         }
+
+        /*
+         * Action qui retourne les informations du user grâce à l'ID du user transmis par session
+         */
         public IActionResult Details()
         {
             var id = (int)HttpContext.Session.GetInt32("IdUser");
@@ -28,6 +39,11 @@ namespace WEB_APP.Controllers
             var staff = staffManager.GetByID(id);
             return View(staff);
         }
+
+        /*
+         * Action de mise à jour des informations du staff via le bouton "sauvegarder"
+         * Réaffiche la vue Detail avec les nouvelles modifications
+         */
         public IActionResult Update(DTO.Staff s)
         {
             staffManager.Update(s);

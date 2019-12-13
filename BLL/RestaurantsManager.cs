@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
+    /*
+   * Interface qui définit le comportement de la classe RestaurantsManager qui suit
+   */
     public interface IRestaurantsManager
     {
         List<Restaurant> GetAll();

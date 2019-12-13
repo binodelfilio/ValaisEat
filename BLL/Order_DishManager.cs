@@ -7,6 +7,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
+    /*
+   * Interface qui définit le comportement de la classe Order_DishManager qui suit
+   */
     public interface IOrder_DishManager
     {
         List<Order_Dish> GetAll();

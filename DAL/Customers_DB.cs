@@ -8,6 +8,9 @@ using DTO;
 
 namespace DAL
 {
+    /*
+     * Interface qui définit le comportement de la classe Customers_DB suivante
+     */
     public interface ICustomers_DB : IDB
     {
 
@@ -26,6 +29,12 @@ namespace DAL
             Configuration = conf;
             connectionString = Configuration.GetConnectionString("DefaultConnection");
         }
+
+
+        /*
+         * Méthode de récuperation de mot de passe grâce au pseudo du customer
+         * avec requête SQL
+         */
         public Customer GetByUsernamePassword(string username, string password)
         {
             Customer customer = null;
@@ -57,6 +66,12 @@ namespace DAL
 
             return customer;
         }
+
+
+        /*
+       * Méthode pour ajouter un objet customer
+       * avec requête SQL
+       */
         public Customer Add(Customer customer)
         {
             try
@@ -86,6 +101,11 @@ namespace DAL
 
             return customer;
         }
+
+        /*
+       * Méthode pour recuperer un objet Customer grâce à son id 
+       * avec requête SQL
+       */
         public Customer GetByID(int id)
         {
             Customer customer = null;
@@ -116,6 +136,11 @@ namespace DAL
 
             return customer;
         }
+
+        /*
+       * Méthode pour récuperer une liste de tous les customer 
+       * avec requête SQL
+       */
         public List<Customer> GetAll()
         {
             List<Customer> results = null;
@@ -147,6 +172,11 @@ namespace DAL
 
             return results;
         }
+
+        /*
+       * Méthode pour mettre à jour un objet customer 
+       * avec requête SQL
+       */
         public int Update(Customer customer)
         {
             int result = 0;
@@ -179,6 +209,10 @@ namespace DAL
 
             return result;
         }
+
+        /*
+         * Méthode de serialisation qui permet de transformer le résultat d'un SqlDataReader en un objet
+         */
         private Customer serializeCustomer(SqlDataReader dr)
         {
             // TODO: Manage to get city object => get from manager ? 

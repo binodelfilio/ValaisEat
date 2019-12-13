@@ -7,6 +7,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
+    /*
+   * Interface qui définit le comportement de la classe OrdersManager qui suit
+   */
     public interface IOrdersManager
     {
         List<Order> GetAll();

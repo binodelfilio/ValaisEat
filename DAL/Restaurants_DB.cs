@@ -7,6 +7,9 @@ using DTO;
 
 namespace DAL
 {
+    /*
+     * Interface qui définit le comportement de la Restaurants_DB suivante
+     */
     public interface IRestaurants_DB : IDB
     {
 
@@ -25,6 +28,11 @@ namespace DAL
             Configuration = conf;
             connectionString = Configuration.GetConnectionString("DefaultConnection");
         }
+
+        /*
+         * Méthode pour supprimer un restaurant grâce à son id 
+         * avec requête SQL
+         */
         public int Delete(int id)
         {
             int result = 0;
@@ -49,6 +57,11 @@ namespace DAL
 
             return result;
         }
+
+        /*
+         * Méthode d'ajout d'un objet restaurant dans la base de donnée
+         * avec requête SQL
+         */
         public Restaurant Add(Restaurant restaurant)
         {
             try
@@ -76,6 +89,11 @@ namespace DAL
 
             return restaurant;
         }
+
+        /*
+         * Méthode de mise à jour d'un objet restaurant dans la base de donnée
+         * avec requête SQL
+         */
         public int Update(Restaurant restaurant)
         {
             int result = 0;
@@ -105,6 +123,11 @@ namespace DAL
 
             return result;
         }
+
+        /*
+         * Méthode pour récuperer un restaurant grâce à son id
+         * avec requête SQL
+         */
         public Restaurant GetByID(int id)
         {
             Restaurant restaurant = null;
@@ -135,6 +158,11 @@ namespace DAL
 
             return restaurant;
         }
+
+        /*
+         * Méthode de récuperation d'une liste de tous les restaurants
+         * avec requête SQL
+         */
         public List<Restaurant> GetAll()
         {
             List<Restaurant> results = null;
@@ -166,6 +194,10 @@ namespace DAL
 
             return results;
         }
+
+        /*
+         * Méthode de serialisation qui permet de transformer le résultat d'un SqlDataReader en un objet
+         */
         private Restaurant serializeRestaurant(SqlDataReader dr)
         {
             // TODO: Manage to get object by id => get from manager ? 

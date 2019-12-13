@@ -7,7 +7,9 @@ using DTO;
 
 namespace DAL
 {
-
+    /*
+     * Interface qui définit le comportement de la Staffs_DB suivante
+     */
     public interface IStaffs_DB: IDB
     {
 
@@ -28,6 +30,12 @@ namespace DAL
             connectionString = Configuration.GetConnectionString("DefaultConnection");
         }
        
+
+        /*
+         * Méthode de récuperation de mot de passe grâce au pseudo du staff
+         * avec requête SQL
+         */
+
         public Staff GetByUsernamePassword(string username, string password)
         {
             Staff staff = null;
@@ -59,7 +67,11 @@ namespace DAL
 
             return staff;
         }
-        
+
+        /*
+         * Méthode pour supprimer un staff par son id
+         * avec requête SQL
+         */
         public int Delete(int id)
         {
             int result = 0;
@@ -84,6 +96,12 @@ namespace DAL
 
             return result;
         }
+
+        /*
+         * Méthode pour ajouer un staff à la base de donnée
+         * avec requête SQL
+         */
+
         public Staff Add(Staff staff)
         {
             try
@@ -113,6 +131,11 @@ namespace DAL
 
             return staff;
         }
+
+        /*
+         * Méthode mettre à jour l'objet staff, avec ses propriétés
+         * avec requête SQL
+         */
         public int Update(Staff staff)
         {
             int result = 0;
@@ -145,6 +168,11 @@ namespace DAL
 
             return result;
         }
+
+        /*
+         * Méthode pour récuperer un objet Staff grâce à son id
+         * avec requête SQL
+         */
         public Staff GetByID(int id)
         {
             Staff staff = null;
@@ -175,6 +203,11 @@ namespace DAL
 
             return staff;
         }
+
+        /*
+         * Méthode pour récuperer la liste entière des employés Staff
+         * avec requête SQL
+         */
         public List<Staff> GetAll()
         {
             List<Staff> results = null;
@@ -206,6 +239,10 @@ namespace DAL
 
             return results;
         }
+
+        /*
+         * Méthode de serialisation qui permet de transformer le résultat d'un SqlDataReader en un objet
+         */
         private Staff serializeStaff(SqlDataReader dr)
         {
             // TODO: Manage to get object by id => get from manager ? 

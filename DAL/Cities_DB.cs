@@ -7,6 +7,9 @@ using DTO;
 
 namespace DAL
 {
+    /*
+     * Interface qui définit le comportement de la Cities_DB suivante
+     */
     public interface ICities_DB : IDB
     {
 
@@ -24,6 +27,11 @@ namespace DAL
             connectionString = Configuration.GetConnectionString("DefaultConnection");
         }
 
+
+        /*
+       * Méthode pour ajouter un objet ville à la base de données
+       * avec requête SQL
+       */
         public City Add(City city)
         {
             try
@@ -47,7 +55,10 @@ namespace DAL
             return city;
         }
 
-
+        /*
+       * Méthode pour récuperer la liste de toutes les villes
+       * avec requête SQL
+       */
         public List<City> GetAll()
         {
             List<City> results = null;
@@ -80,6 +91,11 @@ namespace DAL
             return results;
         }
 
+
+        /*
+       * Méthode pour récuperer un objet City grâce à son ID
+       * avec requête SQL
+       */
         public City GetByID(int id)
         {
             City city = null;
@@ -111,6 +127,9 @@ namespace DAL
             return city;
         }
 
+        /*
+         * Méthode de serialisation qui permet de transformer le résultat d'un SqlDataReader en un objet
+         */
         private City serializeCity(SqlDataReader dr)
         {
             City city = new City();
