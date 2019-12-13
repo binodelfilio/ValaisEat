@@ -18,4 +18,4 @@ A logged customer can choose dishes from a list given by each restaurant availab
 #### Delivery management
 The system will assign the delivery of an order to one courier who is available in the same city as the restaurant where the order is made. One courier cannot have more than 5 orders to deliver every 30 minutes.
 #### Delivery interface
-each courier can log in the system to see his/her upcoming deliveries. Once one delivery is made the delivery person will archive it by pressing a button on the delivery interface.
+Each courier can log in the system to see his/her upcoming deliveries. Once one delivery is made the delivery person will archive it by pressing a button on the delivery interface.
