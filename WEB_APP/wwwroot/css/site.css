@@ -48,3 +48,15 @@ h1 {
 .error-message {
     color:red;
 }
+
+
+.status_com_2 {
+    color: orange !important;
+}
+.status_com_3 {
+    color: green !important;
+}
+.status_com_4 {
+    color: red !important;
+}
+.status_com_0 {}

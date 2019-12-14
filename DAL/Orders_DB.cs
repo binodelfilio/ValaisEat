@@ -40,12 +40,14 @@ namespace DAL
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
                     string query = "UPDATE \"Order\" SET Status=@Status, idCustomer=@idCustomer,idStaff=@idStaff,DatetimeCreated=@DatetimeCreated," +
-                        "DatetimeDelivered=@DatetimeDelivered, DatetimeConfirmed=@DatetimeConfirmed,NbrDish=@NbrDish,TotalPrice=@TotalPrice WHERE IdOrder=@id;";
+                        "DatetimeDelivered=@DatetimeDelivered, DatetimeConfirmed=@DatetimeConfirmed," +
+                        "NbrDish=@NbrDish,TotalPrice=@TotalPrice, TimeToDelivery=@TimeToDelivery WHERE IdOrder=@id;";
                     SqlCommand cmd = new SqlCommand(query, cn);
                     cmd.Parameters.AddWithValue("@status", order.Status);
                     cmd.Parameters.AddWithValue("@idCustomer", order.IdCustomer);
                     cmd.Parameters.AddWithValue("@DatetimeCreated", order.DatetimeCreated);
                     cmd.Parameters.AddWithValue("@TotalPrice", order.TotalPrice);
+                    cmd.Parameters.AddWithValue("@TimeToDelivery", order.TimeToDelivery);
 
                     if (order.DatetimeDelivered != null)
                         cmd.Parameters.AddWithValue("@DatetimeDelivered", order.DatetimeDelivered);

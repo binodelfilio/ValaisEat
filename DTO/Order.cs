@@ -10,6 +10,7 @@ namespace DTO
         public const int PENDING = 1;
         public const int TO_DELIVERY = 2;
         public const int DELIVERED = 3;
+        public const int UNABLE_TO_DELIVER = 4;
 
         public int IdOrder { get; set; }
         public int Status { get; set; }
@@ -38,6 +39,9 @@ namespace DTO
                         break;
                     case 3:
                         return "Livrée";
+                        break;
+                    case 4:
+                        return "Pas de livreur disponible";
                         break;
                     default:
                         return "";

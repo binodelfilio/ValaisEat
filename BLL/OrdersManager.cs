@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using DTO;
 using DAL;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,8 @@ namespace BLL
         void Update(Order order);
         Order GetCurrentOrCreate(int idCustomer);
         List<Order> GetAllByUser(int idCustomer);
+        bool StaffHasMoreThenFive(int id, DateTime dt);
+
     }
     public class OrdersManager : IOrdersManager
     {
@@ -28,7 +31,19 @@ namespace BLL
         {
             this.orders_DB = orders_DB;
         }
-        
+        public bool StaffHasMoreThenFive(int id, DateTime dt)
+        {
+
+            if (GetAll().Where(o => o.IdStaff == id 
+            && o.Status == Order.TO_DELIVERY 
+            && ((dt - o.DatetimeConfirmed).Value.TotalMinutes <= 30 && (dt - o.DatetimeConfirmed).Value.TotalMinutes >=0)).ToList().Count >= 5
+                ) 
+            { 
+                return true;
+            }
+            return false;
+        }
+
         public List<Order> GetAllByUser(int idCustomer)
         {
             List<Order> orders = new List<Order>();
@@ -46,19 +61,20 @@ namespace BLL
         public Order GetCurrentOrCreate(int idCustomer)
         {
             var orders = GetAll();
+            var neworder = new Order {
+                IdCustomer = idCustomer,
+                IdStaff = 0,
+                Status = Order.IN_PROGRESS,
+                IdOrder = 0,
+                NbrDish = 0,
+                DatetimeCreated = DateTime.Now,
+                DatetimeConfirmed = null,
+                DatetimeDelivered = null
+            };
+
             if (orders == null)
             {
-                return Add(new Order
-                {
-                    IdCustomer = idCustomer,
-                    IdStaff = 0,
-                    Status = Order.IN_PROGRESS,
-                    IdOrder = 0,
-                    NbrDish = 0,
-                    DatetimeCreated = DateTime.Now,
-                    DatetimeConfirmed = null,
-                    DatetimeDelivered = null
-                });
+                return Add(neworder);
             }
             foreach (var order in GetAll())
             {
@@ -67,7 +83,7 @@ namespace BLL
                     return order;
                 }
             }
-            return null;
+            return Add(neworder);
         }
         public Order Add(Order order)
         {

@@ -14,11 +14,13 @@ namespace WEB_APP.Controllers
         private IOrdersManager ordersManager { get; set; }
         private IOrder_DishManager order_DishManager { get; set; }
         private IDishesManager dishesManager { get; set; }
+        private IStaffsManager staffsManager { get; set; }
         public PanierController(ICustomersManager customersManager, 
             IOrdersManager ordersManager,
             IDishesManager dishesManager,
-            IOrder_DishManager order_DishManager)
+            IOrder_DishManager order_DishManager, IStaffsManager staffsManager)
         {
+            this.staffsManager = staffsManager;
             this.customersManager = customersManager;
             this.ordersManager = ordersManager;
             this.order_DishManager = order_DishManager;
@@ -50,8 +52,8 @@ namespace WEB_APP.Controllers
 
         private List<Panier> getPaniers()
         {
-            var idUser = (int)HttpContext.Session.GetInt32("IdUser");
-            var orders = ordersManager.GetAllByUser(idUser);
+            var user = getLoggedUser();
+            var orders = ordersManager.GetAllByUser(user.IdCustomer);
             List<Panier> paniers = new List<Panier>();
 
             foreach (var order in orders)
@@ -68,8 +70,35 @@ namespace WEB_APP.Controllers
         }
         public IActionResult Confirm(int idOrder, int time)
         {
-            Console.WriteLine("idOrder:" + idOrder+"; time:"+time);
-            return View();
+            Console.WriteLine("time:" + time);
+            var user = getLoggedUser();
+            var order = ordersManager.GetByID(idOrder);
+            order.DatetimeConfirmed = DateTime.Now.AddMinutes((double)time);
+            ordersManager.Update(order);
+
+
+            var staffs = staffsManager.GetByCity(user.IdCity);
+            var staffId = 0;
+            foreach (var s in staffs)
+            {
+                if (!ordersManager.StaffHasMoreThenFive(s.IdStaff, (DateTime)order.DatetimeConfirmed))
+                {
+                    order.Status = DTO.Order.TO_DELIVERY;
+                    order.IdStaff = s.IdStaff;
+                    ordersManager.Update(order);
+                    return RedirectToAction("Index");
+                }
+            }
+            order.Status = DTO.Order.UNABLE_TO_DELIVER;
+            ordersManager.Update(order);
+            // ordersManager.Update(order);
+
+            return RedirectToAction("Index");
+        }
+        private DTO.Customer getLoggedUser()
+        {
+            var idUser = (int)HttpContext.Session.GetInt32("IdUser");
+            return customersManager.GetByID(idUser);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using DTO;
 using DAL;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,7 @@ namespace BLL
         Staff Add(Staff staff);
         int Update(Staff staff);
         Staff GetByUsernamePassword(string username, string password);
+        List<Staff> GetByCity(int id);
     }
 
     public class StaffsManager : IStaffsManager
@@ -30,7 +32,10 @@ namespace BLL
 ;
         }
 
-        
+        public List<Staff> GetByCity(int id)
+        {           
+            return GetAll().Where(s => s.IdCity == id).ToList(); ;
+        }
         public Staff GetByUsernamePassword(string username, string password)
         {
             return staff_db.GetByUsernamePassword(username, password);
