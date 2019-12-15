@@ -2,7 +2,7 @@
 @model IEnumerable<WEB_APP.Models.Panier>
 @{
     Layout = "_Navigation";
-    ViewData["Title"] = "";
+    ViewData["Title"] = "Commandes";
 }
 
 <h2>Commandes à livrer</h2>
@@ -15,9 +15,9 @@
             @if (panier.Order.Status == DTO.Order.TO_DELIVERY)
             {
                 <li>
-
+                    <p style="padding:0;margin:0;">Client : @panier.Customer.Firstname @panier.Customer.Lastname</p>
+                    <p style="padding:0;margin:0;">Adresse : @panier.Customer.Address - @panier.City.NPA @panier.City.Name</p>
                     <div class="uk-grid-small" uk-grid>
-
                         <div class="uk-width-expand" uk-leader>Prix total</div>
                         <div>@panier.Order.TotalPrice CHF</div>
                     </div>
@@ -42,16 +42,17 @@
 
             @if (panier.Order.Status != DTO.Order.TO_DELIVERY && panier.Order.Status != DTO.Order.IN_PROGRESS)
             {
-                <li>
+        <li>
 
-                    <div class="uk-grid-small" uk-grid>
-
-                        <div class="uk-width-expand" uk-leader>Prix total</div>
-                        <div>@panier.Order.TotalPrice CHF</div>
-                    </div>
-                    <input asp-for="@panier.Order.IdOrder" type="hidden" />
-                    <span>@panier.Order.StatusStr</span>
-                </li>
+            <p style="padding:0;margin:0;">Client : @panier.Customer.Firstname @panier.Customer.Lastname</p>
+            <p style="padding:0;margin:0;">Adresse : @panier.Customer.Address - @panier.City.NPA @panier.City.Name</p>
+            <div class="uk-grid-small" uk-grid>
+                <div class="uk-width-expand" uk-leader>Prix total</div>
+                <div>@panier.Order.TotalPrice CHF</div>
+            </div>
+            <input asp-for="@panier.Order.IdOrder" type="hidden" />
+            <span>@panier.Order.StatusStr</span>
+        </li>
 
             }
         }

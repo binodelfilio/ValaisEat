@@ -23,19 +23,23 @@ namespace WEB_APP.Controllers
         private IOrdersManager ordersManager { get; set; }
         private IOrder_DishManager order_DishManager { get; set; }
         private IDishesManager dishesManager { get; set; }
+        private ICitiesManager citiesManager { get; set; }
+        private IRestaurantsManager restaurantsManager { get; set; }
 
 
-               
+
         public AdminController(IStaffsManager staffManager, ICustomersManager customersManager,
             IOrdersManager ordersManager,
             IDishesManager dishesManager,
-            IOrder_DishManager order_DishManager)
+            IOrder_DishManager order_DishManager, ICitiesManager citiesManager, IRestaurantsManager restaurantsManager)
         {
             this.staffManager = staffManager;
             this.customersManager = customersManager;
             this.ordersManager = ordersManager;
             this.order_DishManager = order_DishManager;
             this.dishesManager = dishesManager;
+            this.citiesManager = citiesManager;
+            this.restaurantsManager = restaurantsManager;
         }
 
         public IActionResult Index()
@@ -44,8 +48,6 @@ namespace WEB_APP.Controllers
 
 
 
-            //TODO: affiche l'adresse de livraison, l'adresse du resto customerManager.GetById(id);
-            //var customer = customerManager.GetById(id);
 
             return View(panier);
         }
@@ -91,7 +93,8 @@ namespace WEB_APP.Controllers
                 {
                     l_orderDish.Add(new OrderDish { Dish = dishesManager.GetByID(od.IdDish), Order_dish = od });
                 }
-                paniers.Add(new Panier { Order = order, OrderDishes = l_orderDish });
+                var customer = customersManager.GetByID(order.IdCustomer);
+                paniers.Add(new Panier { Order = order, OrderDishes = l_orderDish, Customer = customer, City = citiesManager.GetByID(customer.IdCity) });
             }
             return paniers;
         }

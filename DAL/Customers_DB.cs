@@ -215,7 +215,6 @@ namespace DAL
          */
         private Customer serializeCustomer(SqlDataReader dr)
         {
-            // TODO: Manage to get city object => get from manager ? 
             Customer customer = new Customer();
 
             customer.IdCustomer = (int)dr["IdCustomer"];

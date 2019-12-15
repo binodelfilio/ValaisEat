@@ -88,7 +88,7 @@ namespace WEB_APP.Controllers
             var order = getCurrentPanier();
             order.NbrDish += 1;
             var timeprepa = dishesManager.GetByID(idDish).TimePrepa;
-            if (order.TimeToPrepare > timeprepa)
+            if (timeprepa > order.TimeToPrepare)
                 order.TimeToPrepare = timeprepa;
             order.TotalPrice += dishesManager.GetByID(idDish).Price;
             HttpContext.Session.SetInt32("NbrDish", order.NbrDish);

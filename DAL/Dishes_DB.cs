@@ -205,7 +205,6 @@ namespace DAL
 
         private Dish serializeDish(SqlDataReader dr)
         {
-            // TODO: Manage to get city object => get from manager ? 
             Dish dish = new Dish();
             dish.IdDish = (int)dr["IdDish"];
             dish.Name = (string)dr["Name"];

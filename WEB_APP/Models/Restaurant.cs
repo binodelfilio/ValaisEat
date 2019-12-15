@@ -12,7 +12,6 @@ namespace WEB_APP.Models
         public string Address { get; set; }
 
 
-        // TODO: Est-ce que c'est un objet ou la foreign key de l'objet ?
         public int IdCity { get; set; }
         public String PicPath { get; set; }
 

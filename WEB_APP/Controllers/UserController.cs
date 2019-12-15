@@ -41,7 +41,6 @@ namespace WEB_APP.Controllers
         [HttpPost]
         public IActionResult Save(DTO.Customer c)
         {
-            // TODO: manage IdCity for modify customer's account
 
             customersManager.Update(c);
                                

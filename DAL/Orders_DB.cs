@@ -222,7 +222,6 @@ namespace DAL
          */
         private Order serializeOrder(SqlDataReader dr)
         {
-            // TODO: Manage to get object by id => get from manager ? 
             Order order = new Order();
 
             order.IdOrder = (int)dr["IdOrder"];

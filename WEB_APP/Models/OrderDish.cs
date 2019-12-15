@@ -9,5 +9,6 @@ namespace WEB_APP.Models
     {
         public DTO.Order_Dish Order_dish { get; set; }
         public DTO.Dish Dish { get; set; }
+        public DTO.Restaurant Restaurant { get; set; }
     }
 }
