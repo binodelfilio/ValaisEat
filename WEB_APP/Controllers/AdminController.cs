@@ -41,6 +41,12 @@ namespace WEB_APP.Controllers
         public IActionResult Index()
         {
             List<Panier> panier = getPaniers();
+
+
+
+            //TODO: affiche l'adresse de livraison, l'adresse du resto customerManager.GetById(id);
+            //var customer = customerManager.GetById(id);
+
             return View(panier);
         }
 

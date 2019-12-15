@@ -7,8 +7,7 @@
 
 @foreach (var panier in Model)
 {
-    //if(order.Status == DTO.Order.IN_PROGRESS)
-    //{
+    
     <ul uk-accordion="multiple: true">
 
         <li class="@((panier.Order.Status == DTO.Order.IN_PROGRESS)?"uk-open":"")">
