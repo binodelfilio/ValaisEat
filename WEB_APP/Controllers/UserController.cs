@@ -29,7 +29,7 @@ namespace WEB_APP.Controllers
          */
         public IActionResult Index()
         {
-            var id = (int)HttpContext.Session.GetInt32("IdUser");
+            var id = (int)HttpContext.Session.GetInt32("IdCustomer");
             var customer = customersManager.GetByID(id);
             return View(customer);
         }

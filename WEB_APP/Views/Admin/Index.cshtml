@@ -1,9 +1,118 @@
 ﻿
-@model DTO.Customer
+@model IEnumerable<WEB_APP.Models.Panier>
 @{
     Layout = "_Navigation";
-    ViewData["Title"] = "VS EATS - STAFF ";
+    ViewData["Title"] = "";
 }
 
-<h2>Ouesh !! AU boulot !! </h2>
+<h2>Commandes à livrer</h2>
 
+<div class="uk-form-stacked">
+    <ul class="uk-list uk-list-divider">
+        @foreach (var panier in Model)
+        {
+
+            @if (panier.Order.Status == DTO.Order.TO_DELIVERY)
+            {
+                <li>
+
+                    <div class="uk-grid-small" uk-grid>
+
+                        <div class="uk-width-expand" uk-leader>Prix total</div>
+                        <div>@panier.Order.TotalPrice CHF</div>
+                    </div>
+                    <input asp-for="@panier.Order.IdOrder" type="hidden" />
+                    <span>@panier.Order.StatusStr -  @panier.Order.DatetimeConfirmed</span>
+                    <a href="@Url.Action("Delivered", new { id = panier.Order.IdOrder })" class="uk-button uk-button-primary uk-button-small" style="float:right;">Confirmer la livraison</a>
+
+                </li>
+            }
+
+
+
+            @*<div>
+                    <div class="@((panier.Order.Status == DTO.Order.IN_PROGRESS)?"uk-open":"")">
+                        <a class="status_com_@panier.Order.Status" href="#">
+                            @if (panier.Order.Status == DTO.Order.IN_PROGRESS)
+                            {
+                                <span>@panier.Order.StatusStr - @panier.Order.DatetimeCreated </span>
+                            }
+                            else
+                            {
+                                <span>@panier.Order.StatusStr - @panier.Order.DatetimeConfirmed</span>
+                            }
+
+                        </a>
+                        <ul class="uk-list uk-list-divider">
+                            @foreach (var od in panier.OrderDishes)
+                            {
+
+                                <li>
+                                    <div class="uk-grid-small" uk-grid>
+                                        <div class="uk-width-expand" uk-leader>@od.Order_dish.Quantity x @od.Dish.Name</div>
+                                        <div>@(od.Dish.Price * od.Order_dish.Quantity) CHF</div>
+                                    </div>
+                                </li>
+
+
+                            }
+                            <li>
+                                <div class="uk-grid-small" uk-grid>
+                                    <div class="uk-width-expand" uk-leader>TOTAL</div>
+                                    <div>@panier.Order.TotalPrice CHF</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+
+
+                </div>
+
+                <div class="uk-margin">
+                    <div uk-form-custom="target: > * > span:first-child">
+                        <select>
+                            <option value="0">En cours</option>
+                            <option value="1">Livrée</option>
+
+                        </select>
+                        <button class="uk-button uk-button-default" type="button" tabindex="-1">
+                            <span></span>
+                            <span uk-icon="icon: chevron-down"></span>
+                        </button>
+                    </div>
+                </div>
+
+
+                <h1 class="uk-heading-line uk-text-center"></h1>*@
+
+        }
+    </ul>
+</div>
+
+<h2>Commandes traités</h2>
+
+<div class="uk-form-stacked">
+    <ul class="uk-list uk-list-divider">
+        @foreach (var panier in Model)
+        {
+
+            @if (panier.Order.Status != DTO.Order.TO_DELIVERY && panier.Order.Status != DTO.Order.IN_PROGRESS)
+            {
+                <li>
+
+                    <div class="uk-grid-small" uk-grid>
+
+                        <div class="uk-width-expand" uk-leader>Prix total</div>
+                        <div>@panier.Order.TotalPrice CHF</div>
+                    </div>
+                    <input asp-for="@panier.Order.IdOrder" type="hidden" />
+                    <span>@panier.Order.StatusStr</span>
+                </li>
+
+            }
+        }
+    </ul>
+</div>

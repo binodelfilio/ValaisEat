@@ -75,6 +75,7 @@ namespace WEB_APP.Controllers
             }
             return paniers;
         }
+        
         public IActionResult Confirm(int idOrder, int time)
         {
             if (HttpContext.Session.GetInt32("IdCustomer") == 0)

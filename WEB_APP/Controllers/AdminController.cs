@@ -18,15 +18,30 @@ namespace WEB_APP.Controllers
 
     public class AdminController : Controller
     {
-        public IStaffsManager staffManager { get; set; }
-        public AdminController(IStaffsManager staffManager)
+        private IStaffsManager staffManager { get; set; }
+        private ICustomersManager customersManager { get; set; }
+        private IOrdersManager ordersManager { get; set; }
+        private IOrder_DishManager order_DishManager { get; set; }
+        private IDishesManager dishesManager { get; set; }
+
+
+               
+        public AdminController(IStaffsManager staffManager, ICustomersManager customersManager,
+            IOrdersManager ordersManager,
+            IDishesManager dishesManager,
+            IOrder_DishManager order_DishManager)
         {
             this.staffManager = staffManager;
+            this.customersManager = customersManager;
+            this.ordersManager = ordersManager;
+            this.order_DishManager = order_DishManager;
+            this.dishesManager = dishesManager;
         }
 
         public IActionResult Index()
         {
-            return View();
+            List<Panier> panier = getPaniers();
+            return View(panier);
         }
 
         /*
@@ -48,6 +63,37 @@ namespace WEB_APP.Controllers
         {
             staffManager.Update(s);
             return RedirectToAction("Details");
+        }
+        public IActionResult Delivered(int id)
+        {
+            var order = ordersManager.GetByID(id);
+            order.Status = DTO.Order.DELIVERED;
+            order.DatetimeDelivered = DateTime.Now;
+            ordersManager.Update(order);
+            return RedirectToAction("Index");
+        }
+        private List<Panier> getPaniers()
+        {
+            var user = getLoggedUser();
+            var orders = ordersManager.GetAllByStaff(user.IdStaff);
+            List<Panier> paniers = new List<Panier>();
+
+            foreach (var order in orders)
+            {
+                List<OrderDish> l_orderDish = new List<OrderDish>();
+                foreach (var od in order_DishManager.GetByOrder(order.IdOrder))
+                {
+                    l_orderDish.Add(new OrderDish { Dish = dishesManager.GetByID(od.IdDish), Order_dish = od });
+                }
+                paniers.Add(new Panier { Order = order, OrderDishes = l_orderDish });
+            }
+            return paniers;
+        }
+
+        private DTO.Staff getLoggedUser()
+        {
+            var idUser = (int)HttpContext.Session.GetInt32("IdStaff");
+            return staffManager.GetByID(idUser);
         }
     }
 }

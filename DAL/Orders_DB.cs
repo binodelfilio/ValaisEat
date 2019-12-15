@@ -48,6 +48,7 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@DatetimeCreated", order.DatetimeCreated);
                     cmd.Parameters.AddWithValue("@TotalPrice", order.TotalPrice);
                     cmd.Parameters.AddWithValue("@TimeToDelivery", order.TimeToDelivery);
+                    
 
                     if (order.DatetimeDelivered != null)
                         cmd.Parameters.AddWithValue("@DatetimeDelivered", order.DatetimeDelivered);
@@ -226,7 +227,6 @@ namespace DAL
             order.NbrDish = (int)dr["NbrDish"];
             order.TotalPrice = (int)dr["TotalPrice"];
             order.DatetimeCreated = (DateTime)dr["DatetimeCreated"];
-
             if (dr["IdStaff"] != DBNull.Value)
                 order.IdStaff = (int)dr["IdStaff"];
             if (dr["DatetimeConfirmed"] != DBNull.Value)
