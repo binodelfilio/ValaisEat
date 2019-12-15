@@ -7,7 +7,9 @@
 
 
 <div class="main-background" uk-height-viewport>
-
+    <div class="main-logo">
+        <img src="~/images/logo_carre.png" />
+    </div>
     <div class="uk-width-1-1 uk-padding">
         <div class="uk-container">
             <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
@@ -21,10 +23,11 @@
 
                         <!-- This is the container of the content items -->
 
-                        <h2 class="uk-card-title">Welcome to VSeats</h2>
+                        
 
                         <ul class="uk-switcher">
                             <li>
+                                <h2 class="uk-card-title">Welcome chez VSeats</h2>
                                 <form asp-action="Login">
                                     <div class="uk-margin">
                                         <div class="uk-inline uk-width-1-1">
@@ -44,6 +47,7 @@
                                 </form>
                             </li>
                             <li>
+                                <h2 class="uk-card-title">Admin pour VSeats</h2>
                                 <form asp-action="StaffLogin">
                                     <div class="uk-margin">
                                         <div class="uk-inline uk-width-1-1">
@@ -58,12 +62,13 @@
                                         </div>
                                     </div>
                                     <div class="uk-margin">
-                                        <input type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1" value="Login employée" />
+                                        <input type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1" value="Login employé" />
                                     </div>
                                 </form>
                             </li>
                             <li>
                                 <form asp-action="CreateLogin">
+                                    <h2 class="uk-card-title">Créer un compte chez VSeats</h2>
                                     <div class="uk-margin">
                                         <div class="uk-inline uk-width-1-1">
                                             <label class="uk-form-label" for="form-horizontal-text">Email</label>

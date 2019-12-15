@@ -40,7 +40,7 @@ namespace WEB_APP.Controllers
          */
         public IActionResult List()
         {
-            if (HttpContext.Session.GetInt32("IdUser") == 0)
+            if (HttpContext.Session.GetInt32("IdCustomer") == 0)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -89,19 +89,19 @@ namespace WEB_APP.Controllers
             var order = getCurrentPanier();
             order.NbrDish += 1;
             order.TotalPrice += dishesManager.GetByID(idDish).Price;
-
+            HttpContext.Session.SetInt32("NbrDish", order.NbrDish);
             ordersManager.Update(order);
             order_DishManager.GetOrCreate(new DTO.Order_Dish { IdDish = idDish, IdOrder = order.IdOrder, IdOrder_Dish = 0, Quantity = 1 });
-
             return RedirectToAction("Details", new { id = idResto });
         }
 
         // Un controller peut-il avoir un autre controller en paramètre
         private DTO.Order getCurrentPanier()
         {
-            var userId = (int)HttpContext.Session.GetInt32("IdUser");
+            var userId = (int)HttpContext.Session.GetInt32("IdCustomer");
             var order = ordersManager.GetCurrentOrCreate(userId);
             HttpContext.Session.SetInt32("NbrDish", order.NbrDish);
+
             return order;
         }
     }

@@ -45,7 +45,7 @@ namespace WEB_APP.Controllers
             @TempData["ErrorLoginMessage"] = "";
             if (customer != null)
             {
-                setConnectedUser(customer.IdCustomer, customer.Firstname);
+                setCustConnected(customer.IdCustomer, customer.Firstname);
                 return RedirectToAction("List", "Restaurant");
             } else
             {
@@ -68,7 +68,7 @@ namespace WEB_APP.Controllers
             @TempData["ErrorLoginMessage"] = "";
             if (staff != null)
             {
-                setConnectedUser(staff.IdStaff, staff.Firstname);
+                setStaffConnected(staff.IdStaff, staff.Firstname);
                 return RedirectToAction("Index", "Admin");
             }
             else
@@ -99,16 +99,23 @@ namespace WEB_APP.Controllers
         private void setNotConnected()
         {
             HttpContext.Session.SetString("Firstname", "");
-            HttpContext.Session.SetInt32("IdUser", 0);
+            HttpContext.Session.SetInt32("IdStaff", 0);
+            HttpContext.Session.SetInt32("IdCustomer", 0);
         }
 
         /*
          * Méthode qui transmet à la session le firstname et l'id 
          */
-        private void setConnectedUser(int id, string firstname)
+        private void setCustConnected(int id, string firstname)
         {
             HttpContext.Session.SetString("Firstname", firstname);
-            HttpContext.Session.SetInt32("IdUser", id);
+            HttpContext.Session.SetInt32("IdCustomer", id);
         }
+        private void setStaffConnected(int id, string firstname)
+        {
+            HttpContext.Session.SetString("Firstname", firstname);
+            HttpContext.Session.SetInt32("IdStaff", id);
+        }
+        
     }
 }

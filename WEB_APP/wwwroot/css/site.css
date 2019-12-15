@@ -60,3 +60,14 @@ h1 {
     color: red !important;
 }
 .status_com_0 {}
+
+
+.main-logo img {
+
+}
+.main-logo {
+    height: 150px;
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}

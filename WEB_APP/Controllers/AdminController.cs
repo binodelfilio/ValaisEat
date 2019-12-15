@@ -34,7 +34,7 @@ namespace WEB_APP.Controllers
          */
         public IActionResult Details()
         {
-            var id = (int)HttpContext.Session.GetInt32("IdUser");
+            var id = (int)HttpContext.Session.GetInt32("IdStaff");
             
             var staff = staffManager.GetByID(id);
             return View(staff);

@@ -28,13 +28,20 @@ namespace WEB_APP.Controllers
         }
         public IActionResult Index()
         {
-            
+            if (HttpContext.Session.GetInt32("IdCustomer") == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             List<Panier> paniers = getPaniers(); 
             return View(paniers);
         }
 
         public IActionResult Delete(int id)
         {
+            if (HttpContext.Session.GetInt32("IdCustomer") == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var od = order_DishManager.GetByID(id);
             var dish = dishesManager.GetByID(od.IdDish);
             var order = ordersManager.GetByID(od.IdOrder);
@@ -63,13 +70,17 @@ namespace WEB_APP.Controllers
                 {
                     l_orderDish.Add(new OrderDish { Dish = dishesManager.GetByID(od.IdDish), Order_dish = od });
                 }
-                paniers.Add(new Panier { Order = order, OrderDishes = l_orderDish });
+                paniers.Add(new Panier { Order = order, OrderDishes = l_orderDish, Staff=staffsManager.GetByID(order.IdStaff) });
                 // ordersDishes.Add(new OrderDish { Order = order, Dishes = dishes, OrderDishes = ods });
             }
             return paniers;
         }
         public IActionResult Confirm(int idOrder, int time)
         {
+            if (HttpContext.Session.GetInt32("IdCustomer") == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Console.WriteLine("time:" + time);
             var user = getLoggedUser();
             var order = ordersManager.GetByID(idOrder);
@@ -97,8 +108,8 @@ namespace WEB_APP.Controllers
         }
         private DTO.Customer getLoggedUser()
         {
-            var idUser = (int)HttpContext.Session.GetInt32("IdUser");
-            return customersManager.GetByID(idUser);
+            var IdCustomer = (int)HttpContext.Session.GetInt32("IdCustomer");
+            return customersManager.GetByID(IdCustomer);
         }
     }
 }
