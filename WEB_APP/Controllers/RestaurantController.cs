@@ -53,8 +53,7 @@ namespace WEB_APP.Controllers
                 foreach (var restaurant in restaurantsManager.GetByCityId(city.IdCity))
                 {
                     restos.Add(Restaurant.Serialize(restaurant));
-                    restos.Add(Restaurant.Serialize(restaurant));
-                    restos.Add(Restaurant.Serialize(restaurant));
+                  
                 }
                 //new RestaurantsByCity { City = c, Restaurants = restos };
                 restaurantsByCity.Add(new RestaurantsByCity { City = City.Serialize(city), Restaurants = restos });
