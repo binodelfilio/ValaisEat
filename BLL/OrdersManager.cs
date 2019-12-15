@@ -20,6 +20,7 @@ namespace BLL
         void Update(Order order);
         Order GetCurrentOrCreate(int idCustomer);
         List<Order> GetAllByUser(int idCustomer);
+        List<Order> GetAllByStaff(int idStaff);
         bool StaffHasMoreThenFive(int id, DateTime dt);
 
     }
@@ -103,6 +104,17 @@ namespace BLL
         public Order GetByID(int id)
         {
             return orders_DB.GetByID(id);
+        }
+
+        public List<Order> GetAllByStaff(int idStaff)
+        {
+            List<Order> orders = new List<Order>();
+            foreach (var order in GetAll())
+            {
+                if (order.IdStaff== idStaff)
+                    orders.Add(order);
+            }
+            return orders;
         }
     }
 }
