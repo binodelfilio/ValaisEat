@@ -1,0 +1,37 @@
+﻿
+@{
+    Layout = "_Navigation";
+    ViewData["Title"] = "Suppression de la commande";
+    int idCommande = ViewBag.IdOrderToDelete;
+}
+
+
+    <form asp-action="ConfirmDelete" method="get" class="uk-form-horizontal uk-position-center">
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">ID Commande</label>
+            <div class="uk-form-controls">
+                <input name="idCommandeDisplay" value="@idCommande" class="uk-input uk-form-width-medium" type="text" disabled>
+                <input name="idCommande" value="@idCommande" type="hidden">
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Prénom</label>
+            <div class="uk-form-controls">
+                <input name="firstname" class="uk-input uk-form-width-medium" type="text" placeholder="Prénom" required>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Nom</label>
+            <div class="uk-form-controls">
+                <input name="lastname" class="uk-input uk-form-width-medium" type="text" placeholder="Nom" required>
+            </div>
+        </div>
+        <button type="submit" class="uk-button uk-button-danger">
+            Annuler la commande
+        </button>
+        <div class="uk-text-small uk-text-center">
+            <p class="error-message">@TempData["ErrorDeleteCommande"]</p>
+        </div>
+    </form>
+    

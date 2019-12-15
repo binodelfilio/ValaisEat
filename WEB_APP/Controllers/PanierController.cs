@@ -75,22 +75,48 @@ namespace WEB_APP.Controllers
             }
             return paniers;
         }
-        
+        public IActionResult DeleteCommande(int id)
+        {
+            ViewBag.IdOrderToDelete = id;
+            return View();
+        }
+
+        public IActionResult ConfirmDelete(string lastname, string firstname, int idCommande)
+        {
+            var idCust = ordersManager.GetByID(idCommande).IdCustomer;
+            var customer = customersManager.GetByID(idCust);
+
+            if (customer.Firstname == firstname && customer.Lastname == lastname)
+            {
+                ordersManager.Delete(idCommande);
+                return RedirectToAction("Index");
+            } else
+            {
+                TempData["ErrorDeleteCommande"] = "Le nom ou le prénom est faux! Veuillez retenter votre chance.";
+                return RedirectToAction("DeleteCommande", new { id = idCommande });
+            }
+
+        }
         public IActionResult Confirm(int idOrder, int time)
         {
+
             if (HttpContext.Session.GetInt32("IdCustomer") == 0)
             {
                 return RedirectToAction("Index", "Home");
             }
-            Console.WriteLine("time:" + time);
+            HttpContext.Session.SetInt32("NbrDish", 0);
+
             var user = getLoggedUser();
             var order = ordersManager.GetByID(idOrder);
-            order.DatetimeConfirmed = DateTime.Now.AddMinutes((double)time);
+            var timetoadd = time;
+            if (order.TimeToPrepare > time)
+                timetoadd = order.TimeToPrepare;
+
+
+            order.DatetimeConfirmed = DateTime.Now.AddMinutes((double)timetoadd);
             ordersManager.Update(order);
-
-
+            
             var staffs = staffsManager.GetByCity(user.IdCity);
-            var staffId = 0;
             foreach (var s in staffs)
             {
                 if (!ordersManager.StaffHasMoreThenFive(s.IdStaff, (DateTime)order.DatetimeConfirmed))

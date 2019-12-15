@@ -41,14 +41,18 @@ namespace DAL
                 {
                     string query = "UPDATE \"Order\" SET Status=@Status, idCustomer=@idCustomer,idStaff=@idStaff,DatetimeCreated=@DatetimeCreated," +
                         "DatetimeDelivered=@DatetimeDelivered, DatetimeConfirmed=@DatetimeConfirmed," +
-                        "NbrDish=@NbrDish,TotalPrice=@TotalPrice, TimeToDelivery=@TimeToDelivery WHERE IdOrder=@id;";
+                        "NbrDish=@NbrDish,TotalPrice=@TotalPrice, TimeToDelivery=@TimeToDelivery, TimeToPrepare=@TimeToPrepare " +
+                        "WHERE IdOrder=@id;";
                     SqlCommand cmd = new SqlCommand(query, cn);
                     cmd.Parameters.AddWithValue("@status", order.Status);
                     cmd.Parameters.AddWithValue("@idCustomer", order.IdCustomer);
                     cmd.Parameters.AddWithValue("@DatetimeCreated", order.DatetimeCreated);
                     cmd.Parameters.AddWithValue("@TotalPrice", order.TotalPrice);
                     cmd.Parameters.AddWithValue("@TimeToDelivery", order.TimeToDelivery);
+                    cmd.Parameters.AddWithValue("@TimeToPrepare", order.TimeToPrepare);
                     
+
+
 
                     if (order.DatetimeDelivered != null)
                         cmd.Parameters.AddWithValue("@DatetimeDelivered", order.DatetimeDelivered);
@@ -227,6 +231,7 @@ namespace DAL
             order.NbrDish = (int)dr["NbrDish"];
             order.TotalPrice = (int)dr["TotalPrice"];
             order.DatetimeCreated = (DateTime)dr["DatetimeCreated"];
+            order.TimeToPrepare = (int)dr["TimeToPrepare"];
             if (dr["IdStaff"] != DBNull.Value)
                 order.IdStaff = (int)dr["IdStaff"];
             if (dr["DatetimeConfirmed"] != DBNull.Value)

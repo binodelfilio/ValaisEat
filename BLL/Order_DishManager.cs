@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using DTO;
 using DAL;
 using Microsoft.Extensions.Configuration;
@@ -18,8 +19,8 @@ namespace BLL
         int Update(Order_Dish order_Dish);
         Order_Dish Add(Order_Dish order_Dish);
         Order_Dish GetOrCreate(Order_Dish order_Dish);
-        
         List<Order_Dish> GetByOrder(int idOrder);
+        int GetTimePrepa(int idOrder);
 
     }
 
@@ -31,7 +32,10 @@ namespace BLL
         {
             this.orderDish_db = orderDish_db;
         }
-
+        public int GetTimePrepa(int idOrder)
+        {
+            return 0;
+        }
         public int Update(Order_Dish order_Dish)
         {
             return orderDish_db.Update(order_Dish);

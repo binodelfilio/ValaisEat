@@ -48,7 +48,7 @@ namespace BLL
         public List<Order> GetAllByUser(int idCustomer)
         {
             List<Order> orders = new List<Order>();
-            foreach (var order in GetAll())
+            foreach (var order in GetAll().OrderByDescending(o => o.DatetimeCreated).ToList())
             {
                 if (order.IdCustomer == idCustomer)
                     orders.Add(order);

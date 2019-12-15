@@ -22,6 +22,7 @@ namespace DTO
         public int NbrDish { get; set; }
         public int TotalPrice { get; set; }
         public int TimeToDelivery { get; set; }
+        public int TimeToPrepare { get; set; }
         public string StatusStr
         {
             get
