@@ -64,7 +64,14 @@ namespace WEB_APP.Controllers
             staffManager.Update(s);
             return RedirectToAction("Details");
         }
-
+        public IActionResult Delivered(int id)
+        {
+            var order = ordersManager.GetByID(id);
+            order.Status = DTO.Order.DELIVERED;
+            order.DatetimeDelivered = DateTime.Now;
+            ordersManager.Update(order);
+            return RedirectToAction("Index");
+        }
         private List<Panier> getPaniers()
         {
             var user = getLoggedUser();

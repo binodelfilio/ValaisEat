@@ -68,6 +68,7 @@ namespace WEB_APP.Controllers
             }
             return paniers;
         }
+        
         public IActionResult Confirm(int idOrder, int time)
         {
             Console.WriteLine("time:" + time);
