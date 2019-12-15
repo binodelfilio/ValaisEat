@@ -6,37 +6,51 @@ using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
-    interface ICitiesManager
+    /*
+   * Interface qui définit le comportement de la classe CitiesManager qui suit
+   */
+    public interface ICitiesManager
     {
         List<City> GetAll();
         City GetByID(int id);
         City Add(City city);
-
+        City GetOrCreate(City city);
     }
     public class CitiesManager : ICitiesManager
     {
-        public ICities_DB CitiesDbObject { get; }
+        private ICities_DB citie_db { get; }
 
-        public CitiesManager(IConfiguration conf)
+        public City GetOrCreate(City city)
         {
-            CitiesDbObject = new Cities_DB(conf);
+            foreach(var c in GetAll())
+            {
+                if (city.Name == c.Name && city.NPA == c.NPA)
+                {
+                    return c;
+                }
+            }
+            return Add(city);
+        }
+        public CitiesManager(ICities_DB citie_db)
+        {
+            this.citie_db = citie_db;
         }
 
         public City Add(City city)
         {
-            return CitiesDbObject.Add(city);
+            return citie_db.Add(city);
         }
 
         
         public List<City> GetAll()
         {
-            return CitiesDbObject.GetAll();
+            return citie_db.GetAll();
         }
 
 
         public City GetByID(int id)
         {
-            return CitiesDbObject.GetByID(id);
+            return citie_db.GetByID(id);
         }
 
         

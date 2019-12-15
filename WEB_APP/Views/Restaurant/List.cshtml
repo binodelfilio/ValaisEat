@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WEB_APP.Models.RestaurantsByCity>
+
+@{
+    Layout = "_Navigation";
+    ViewData["Title"] = "Liste des restaurants";
+}
+
+
+<div class="uk-child-width-1-4@m" uk-grid>
+
+    @foreach (var restoByCity in Model)
+    {
+
+        @*<div class="uk-width-1-1@m">
+                <h1>@Html.DisplayFor(modelItem => restoByCity.City.Name)</h1>
+            </div>*@
+
+        @foreach (var restaurant in restoByCity.Restaurants)
+        {
+
+
+            <div>
+
+                <a class="uk-link-toggle" href="@Url.Action("Details", "Restaurant", new { id = restaurant.Id })">
+                    <div class="uk-card uk-box-shadow-large uk-card-default">
+                        <div class="uk-card-media-top uk-cover-container">
+                            <img src="/images/Image_VS_resto/@Html.DisplayFor(modelItem => restaurant.PicPath)" alt="" uk-cover>
+                            <canvas height="200"></canvas>
+                        </div>
+                        <div class="uk-card-body">
+                            <h3 class="uk-card-title"><span class="uk-link-heading">@Html.DisplayFor(modelItem => restaurant.Name)</span></h3>
+                            <p>@Html.DisplayFor(modelItem => restaurant.Address)</p>
+                            <p>@Html.DisplayFor(modelItem => restoByCity.City.NPA) - @Html.DisplayFor(modelItem => restoByCity.City.Name)</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        }
+    }
+</div>

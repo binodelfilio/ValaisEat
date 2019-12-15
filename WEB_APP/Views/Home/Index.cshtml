@@ -1,0 +1,137 @@
+﻿@model WEB_APP.Models.HomeModel
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+
+
+    <div class="main-background" uk-height-viewport>
+        
+        <div class="uk-width-1-1 uk-padding">
+            <div class="uk-container">
+                <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+                    <div class="uk-width-1-1@m">
+                        <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+                            <ul uk-tab>
+                                <li><a href="">Client·e</a></li>
+                                <li><a href="">Employé·e</a></li>
+                                <li><a href="">Nouveau compte</a></li>
+                            </ul>
+
+                            <!-- This is the container of the content items -->
+
+
+
+                            <ul class="uk-switcher">
+                                <li>
+                                    <h2 class="uk-card-title">Bienvenue chez VS Eats</h2>
+                                    <form asp-action="Login">
+                                        <div class="uk-margin">
+                                            <div class="uk-inline uk-width-1-1">
+                                                <span class="uk-form-icon" uk-icon="icon: mail"></span>
+                                                <input asp-for="Login.Username" class="uk-input uk-form-large" type="text" value="" placeholder="Utilisateur">
+                                            </div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-inline uk-width-1-1">
+                                                <span class="uk-form-icon" uk-icon="icon: user"></span>
+                                                <input asp-for="Login.Password" class="uk-input uk-form-large" type="password" value="" placeholder="Mot de passe">
+                                            </div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <input type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1" value="Login client·e" />
+                                        </div>
+                                    </form>
+                                </li>
+                                <li>
+                                    <h2 class="uk-card-title">Staff chez VS Eats</h2>
+                                    <form asp-action="StaffLogin">
+                                        <div class="uk-margin">
+                                            <div class="uk-inline uk-width-1-1">
+                                                <span class="uk-form-icon" uk-icon="icon: mail"></span>
+                                                <input asp-for="Login.Username" class="uk-input uk-form-large" type="text" value="" placeholder="Username">
+                                            </div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-inline uk-width-1-1">
+                                                <span class="uk-form-icon" uk-icon="icon: user"></span>
+                                                <input asp-for="Login.Password" class="uk-input uk-form-large" type="password" value="" placeholder="Password">
+                                            </div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <input type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1" value="Login employé·e" />
+                                        </div>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form asp-action="CreateLogin">
+                                        <h2 class="uk-card-title">Créer un compte chez VS Eats</h2>
+                                        <div class="uk-margin">
+                                            <div class="uk-inline uk-width-1-1">
+                                                <label class="uk-form-label" for="form-horizontal-text">Email</label>
+                                                <input class="uk-input uk-form-large" asp-for="Customer.Email" value="" type="email" placeholder="Email" required>
+                                            </div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-inline uk-width-1-1">
+                                                <label class="uk-form-label" for="form-horizontal-text">Username</label>
+                                                <input class="uk-input uk-form-large" asp-for="Customer.Username" value="" type="text" placeholder="Username" required>
+                                            </div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-inline uk-width-1-1">
+                                                <label class="uk-form-label" for="form-horizontal-text">Prénom</label>
+                                                <input class="uk-input uk-form-large" type="text" value="" asp-for="Customer.Firstname" placeholder="Prénom" required>
+                                            </div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-inline uk-width-1-1">
+                                                <label class="uk-form-label" for="form-horizontal-text">Nom</label>
+                                                <input class="uk-input uk-form-large" type="text" value="" asp-for="Customer.Lastname" placeholder="Nom" required>
+                                            </div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-inline uk-width-1-1">
+                                                <label class="uk-form-label" for="form-horizontal-text">Mot de passe</label>
+                                                <input class="uk-input uk-form-large" type="password" value="" asp-for="Customer.Password" placeholder="Mot de passe" required />
+                                            </div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-inline uk-width-1-1">
+                                                <label class="uk-form-label" for="form-horizontal-text">Adresse</label>
+                                                <input class="uk-input uk-form-large" type="text" value="" asp-for="Customer.Address" placeholder="Address" required />
+                                            </div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-inline uk-width-1-1">
+                                                <label class="uk-form-label" for="form-horizontal-text">NPA</label>
+                                                <input class="uk-input uk-form-large" type="text" value="" asp-for="City.NPA" placeholder="NPA" required />
+                                            </div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-inline uk-width-1-1">
+                                                <label class="uk-form-label" for="form-horizontal-text">Ville</label>
+                                                <input class="uk-input uk-form-large" type="text" value="" asp-for="City.Name" placeholder="Ville" required />
+                                            </div>
+                                        </div>
+
+                                        <div class="uk-margin">
+                                            <input type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1" value="Nouveau compte" />
+                                        </div>
+                                    </form>
+                                </li>
+                            </ul>
+
+                            <div class="uk-text-small uk-text-center">
+                                <p class="error-message">@TempData["ErrorLoginMessage"]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-logo">
+            <img src="~/images/logo_carre.png" />
+        </div>
+    </div>

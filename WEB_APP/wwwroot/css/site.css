@@ -1,0 +1,73 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body, html, .body-content {
+    height: 100%;
+    width: 100%;
+    font-family: 'Raleway', sans-serif;
+}
+h1, h2, h3, h4, h5, p {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+}
+h1 {
+    margin-top:20px !important;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+.main-background {
+    background: url('/images/fondHome.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.logo {
+    height:80px;
+}
+
+.uk-icon {
+    color: black;
+}
+
+.title-nav {
+    margin:0px;
+}
+
+.active span {
+    color: #1e87f0;
+}
+.uk-badge {
+    color: white !important;
+}
+
+.error-message {
+    color:red;
+}
+
+
+.status_com_2 {
+    color: orange !important;
+}
+.status_com_3 {
+    color: green !important;
+}
+.status_com_4 {
+    color: red !important;
+}
+.status_com_0 {}
+
+
+.main-logo img {
+
+}
+.main-logo {
+    height: 150px;
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}

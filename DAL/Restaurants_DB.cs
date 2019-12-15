@@ -7,6 +7,9 @@ using DTO;
 
 namespace DAL
 {
+    /*
+     * Interface qui définit le comportement de la Restaurants_DB suivante
+     */
     public interface IRestaurants_DB : IDB
     {
 
@@ -25,6 +28,11 @@ namespace DAL
             Configuration = conf;
             connectionString = Configuration.GetConnectionString("DefaultConnection");
         }
+
+        /*
+         * Méthode pour supprimer un restaurant grâce à son id 
+         * avec requête SQL
+         */
         public int Delete(int id)
         {
             int result = 0;
@@ -49,19 +57,26 @@ namespace DAL
 
             return result;
         }
+
+        /*
+         * Méthode d'ajout d'un objet restaurant dans la base de donnée
+         * avec requête SQL
+         */
         public Restaurant Add(Restaurant restaurant)
         {
             try
             {
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
-                    string query = "INSERT INTO Restaurant(name, address, idCity) " +
+                    string query = "INSERT INTO Restaurant(name, address, idCity, PicPath) " +
                         "VALUES(@name, @address, @idCity); SELECT SCOPE_IDENTITY()";
                     SqlCommand cmd = new SqlCommand(query, cn);
 
                     cmd.Parameters.AddWithValue("@name", restaurant.Name);
                     cmd.Parameters.AddWithValue("@address", restaurant.Address);
-                    cmd.Parameters.AddWithValue("@IdCity", restaurant.City.IdCity);
+                    cmd.Parameters.AddWithValue("@IdCity", restaurant.IdCity);
+                    cmd.Parameters.AddWithValue("@PicPath", restaurant.PicPath);
+                    
                     cn.Open();
 
                     restaurant.IdRestaurant = Convert.ToInt32(cmd.ExecuteScalar());
@@ -74,6 +89,11 @@ namespace DAL
 
             return restaurant;
         }
+
+        /*
+         * Méthode de mise à jour d'un objet restaurant dans la base de donnée
+         * avec requête SQL
+         */
         public int Update(Restaurant restaurant)
         {
             int result = 0;
@@ -82,12 +102,14 @@ namespace DAL
             {
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
-                    string query = "UPDATE Restaurant SET name=@name, address=@address, IdCity=@IdCity WHERE idRestaurant=@id;";
+                    string query = "UPDATE Restaurant SET name=@name, address=@address, IdCity=@IdCity PicPath=@PicPath WHERE idRestaurant=@id;";
                     SqlCommand cmd = new SqlCommand(query, cn);
                     cmd.Parameters.AddWithValue("@name", restaurant.Name);
                     cmd.Parameters.AddWithValue("@address", restaurant.Address);
-                    cmd.Parameters.AddWithValue("@IdCity", restaurant.City.IdCity);
+                    cmd.Parameters.AddWithValue("@IdCity", restaurant.IdCity);
                     cmd.Parameters.AddWithValue("@id", restaurant.IdRestaurant);
+                    cmd.Parameters.AddWithValue("@PicPath", restaurant.PicPath);
+
 
                     cn.Open();
 
@@ -101,6 +123,11 @@ namespace DAL
 
             return result;
         }
+
+        /*
+         * Méthode pour récuperer un restaurant grâce à son id
+         * avec requête SQL
+         */
         public Restaurant GetByID(int id)
         {
             Restaurant restaurant = null;
@@ -109,7 +136,7 @@ namespace DAL
             {
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT * FROM Restaurant WHERE IdRestaurant = @id";
+                    string query = "SELECT * FROM Restaurant WHERE IdResto = @id";
                     SqlCommand cmd = new SqlCommand(query, cn);
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -131,6 +158,11 @@ namespace DAL
 
             return restaurant;
         }
+
+        /*
+         * Méthode de récuperation d'une liste de tous les restaurants
+         * avec requête SQL
+         */
         public List<Restaurant> GetAll()
         {
             List<Restaurant> results = null;
@@ -162,15 +194,19 @@ namespace DAL
 
             return results;
         }
+
+        /*
+         * Méthode de serialisation qui permet de transformer le résultat d'un SqlDataReader en un objet
+         */
         private Restaurant serializeRestaurant(SqlDataReader dr)
         {
-            // TODO: Manage to get object by id => get from manager ? 
             Restaurant restaurant = new Restaurant();
 
-            restaurant.IdRestaurant = (int)dr["IdRestaurant"];
+            restaurant.IdRestaurant = (int)dr["idResto"];
             restaurant.Name = (string)dr["Name"];
-            restaurant.Address = (string)dr["Address"]; ;
-            restaurant.City = null;
+            restaurant.Address = (string)dr["Address"];
+            restaurant.IdCity = (int)dr["IdCity"];
+            restaurant.PicPath = (string)dr["PicPath"];
 
             return restaurant;
         }

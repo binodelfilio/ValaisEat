@@ -1,54 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using DTO;
 using DAL;
 using Microsoft.Extensions.Configuration;
 
 namespace BLL
 {
-    interface IRestaurantsManager
+    /*
+   * Interface qui définit le comportement de la classe RestaurantsManager qui suit
+   */
+    public interface IRestaurantsManager
     {
         List<Restaurant> GetAll();
         Restaurant GetByID(int id);
         int Delete(int id);
         Restaurant Add(Restaurant restaurant);
+        List<Restaurant> GetByCityId(int idCity);
         int Update(Restaurant restaurant);
     }
-    class RestaurantsManager : IRestaurantsManager
+    public class RestaurantsManager : IRestaurantsManager
     {
 
-        public IRestaurants_DB RestaurantsDbObject { get; }
+        public IRestaurants_DB restaurants_DB { get; }
 
-        public RestaurantsManager(IConfiguration conf)
+        public RestaurantsManager(IRestaurants_DB restaurants_DB)
         {
-            RestaurantsDbObject = new Restaurants_DB(conf);
+            this.restaurants_DB = restaurants_DB;
         }
 
-
+        public List<Restaurant> GetByCityId(int idCity)
+        {
+            
+            return GetAll().Where(r => r.IdCity == idCity).ToList();
+            
+        }
         public Restaurant Add(Restaurant restaurant)
         {
-            return RestaurantsDbObject.Add(restaurant);
+            return restaurants_DB.Add(restaurant);
         }
 
         public int Delete(int id)
         {
-            return RestaurantsDbObject.Delete(id);
+            return restaurants_DB.Delete(id);
         }
 
         public List<Restaurant> GetAll()
         {
-            return RestaurantsDbObject.GetAll();
+            return restaurants_DB.GetAll();
         }
 
         public Restaurant GetByID(int id)
         {
-            return RestaurantsDbObject.GetByID(id);
+            return restaurants_DB.GetByID(id);
         }
 
         public int Update(Restaurant restaurant)
         {
-            return RestaurantsDbObject.Update(restaurant);
+            return restaurants_DB.Update(restaurant);
         }
     }
 }

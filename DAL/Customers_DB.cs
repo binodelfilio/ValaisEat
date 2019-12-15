@@ -8,6 +8,9 @@ using DTO;
 
 namespace DAL
 {
+    /*
+     * Interface qui définit le comportement de la classe Customers_DB suivante
+     */
     public interface ICustomers_DB : IDB
     {
 
@@ -15,6 +18,7 @@ namespace DAL
         Customer GetByID(int id);
         Customer Add(Customer customer);
         int Update(Customer customer);
+        Customer GetByUsernamePassword(string username, string password);
     }
     public class Customers_DB : ICustomers_DB
     {
@@ -25,6 +29,49 @@ namespace DAL
             Configuration = conf;
             connectionString = Configuration.GetConnectionString("DefaultConnection");
         }
+
+
+        /*
+         * Méthode de récuperation de mot de passe grâce au pseudo du customer
+         * avec requête SQL
+         */
+        public Customer GetByUsernamePassword(string username, string password)
+        {
+            Customer customer = null;
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM Customer WHERE Username = @Username AND Password = @Password";
+                    SqlCommand cmd = new SqlCommand(query, cn);
+                    cmd.Parameters.AddWithValue("@Username", username);
+                    cmd.Parameters.AddWithValue("@Password", password);
+
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            customer = serializeCustomer(dr);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return customer;
+        }
+
+
+        /*
+       * Méthode pour ajouter un objet customer
+       * avec requête SQL
+       */
         public Customer Add(Customer customer)
         {
             try
@@ -41,7 +88,7 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Username", customer.Username);
                     cmd.Parameters.AddWithValue("@Password", customer.Password);
                     cmd.Parameters.AddWithValue("@Email", customer.Email);
-                    cmd.Parameters.AddWithValue("@idCity", customer.City.IdCity);
+                    cmd.Parameters.AddWithValue("@idCity", customer.IdCity);
                     cn.Open();
 
                     customer.IdCustomer = Convert.ToInt32(cmd.ExecuteScalar());
@@ -54,6 +101,11 @@ namespace DAL
 
             return customer;
         }
+
+        /*
+       * Méthode pour recuperer un objet Customer grâce à son id 
+       * avec requête SQL
+       */
         public Customer GetByID(int id)
         {
             Customer customer = null;
@@ -84,6 +136,11 @@ namespace DAL
 
             return customer;
         }
+
+        /*
+       * Méthode pour récuperer une liste de tous les customer 
+       * avec requête SQL
+       */
         public List<Customer> GetAll()
         {
             List<Customer> results = null;
@@ -115,6 +172,11 @@ namespace DAL
 
             return results;
         }
+
+        /*
+       * Méthode pour mettre à jour un objet customer 
+       * avec requête SQL
+       */
         public int Update(Customer customer)
         {
             int result = 0;
@@ -132,7 +194,7 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Username", customer.Username);
                     cmd.Parameters.AddWithValue("@Password", customer.Password);
                     cmd.Parameters.AddWithValue("@Email", customer.Email);
-                    cmd.Parameters.AddWithValue("@idCity", customer.City.IdCity);
+                    cmd.Parameters.AddWithValue("@idCity", customer.IdCity);
                     cmd.Parameters.AddWithValue("@id", customer.IdCustomer);
 
                     cn.Open();
@@ -147,9 +209,12 @@ namespace DAL
 
             return result;
         }
+
+        /*
+         * Méthode de serialisation qui permet de transformer le résultat d'un SqlDataReader en un objet
+         */
         private Customer serializeCustomer(SqlDataReader dr)
         {
-            // TODO: Manage to get city object => get from manager ? 
             Customer customer = new Customer();
 
             customer.IdCustomer = (int)dr["IdCustomer"];
@@ -160,7 +225,7 @@ namespace DAL
             customer.Address = (string)dr["Address"];
             if (dr["Email"] != null)
                 customer.Email = (string)dr["Email"];
-            customer.City = null;
+            customer.IdCity = (int)dr["IdCity"];
 
             return customer;
         }

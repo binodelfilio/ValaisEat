@@ -1,0 +1,99 @@
+﻿@using Microsoft.AspNetCore.Http
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    @Html.Partial("_Head")
+</head>
+<body>
+    <div class="container body-content">
+        <nav style="padding-top: 10px !important; padding-bottom: 10px !important;" class="uk-navbar-container uk-padding-large uk-navbar uk-padding-remove-bottom uk-padding-remove-top" uk-navbar>
+
+            @if (ViewContext.RouteData.Values["controller"].ToString() == "Admin")
+            {
+                <div class="uk-navbar-left">
+                    <a asp-action="Details">
+                        <img class="logo" src="~/images/logo.png" />
+                    </a>
+                </div>
+                <div class="uk-navbar-center">
+                </div>
+                <div class="uk-navbar-right">
+                    <ul class="uk-navbar-nav">
+                        <li>
+                            <a class="@(Context.Request.Path == "/Admin/Details" ? "active" : "")" href="@Url.Action("Details", "Admin")">
+                                <span class="uk-icon-link" uk-icon="icon: user; ratio: 2.5"></span>
+                            </a>
+                            <div class="uk-navbar-dropdown">
+                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <li><a href="@Url.Action("Details", "Admin")">Profil</a></li>
+                                    <li><a href="@Url.Action("Deconnexion", "User")">Déconnexion</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="@(Context.Request.Path == "/User" ? "active" : "")" href="@Url.Action("Index", "Admin")">
+                                <span class="uk-icon-link" uk-icon="icon: home; ratio: 2.5"></span>
+                            </a>
+                        </li>
+                    </ul>
+
+
+                </div>
+            }
+            else
+            {
+                <div class="uk-navbar-left">
+                    <a asp-controller="Restaurant" asp-action="List">
+                        <img class="logo" src="~/images/logo.png" />
+                    </a>
+                </div>
+                <div class="uk-navbar-center">
+                    <h1 class="title-nav"></h1>
+                </div>
+                <div class="uk-navbar-right">
+                    <ul class="uk-navbar-nav">
+                        <li>
+                            <a class="@(Context.Request.Path == "/Restaurant/List" ? "active" : "")" href="@Url.Action("List", "Restaurant")">
+                                <span class="uk-icon-link" uk-icon="icon: home; ratio: 2.5"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "User")" class="@(Context.Request.Path == "/User" ? "active" : "")">
+                                <span class="uk-icon-link" uk-icon="icon: user; ratio: 2.5"></span>
+                            </a>
+                            <div class="uk-navbar-dropdown">
+                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <li><a href="@Url.Action("Index", "User")">Profil</a></li>
+                                    <li><a href="@Url.Action("Deconnexion", "User")">Déconnexion</a></li>
+                                </ul>
+                            </div>
+
+                        </li>
+                        <li>
+                            <a class="@(Context.Request.Path == "/Panier" ? "active" : "")" href="@Url.Action("Index", "Panier")">
+                                <span class="uk-icon-link" uk-icon="icon: cart; ratio: 2.5"></span>
+                                <span class="uk-badge"> @Context.Session.GetInt32("NbrDish")</span>
+                            </a>
+                        </li>
+                    </ul>
+
+
+
+                </div>
+            }
+
+        </nav>
+        <div class="uk-padding-small uk-margin-large-left uk-margin-large-right">
+            <h5 style="text-align:right">Bienvenue @Context.Session.GetString("Firstname")</h5>
+            <h1 class="uk-heading-line uk-text-center"><span>@ViewData["Title"]</span></h1>
+            @RenderBody()
+
+        </div>
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
